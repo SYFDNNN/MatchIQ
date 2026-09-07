@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="id" data-language="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MatchIQ — prediksi Piala Dunia dan UEFA Champions League dengan Hybrid AI v3.">
+  <meta name="theme-color" content="#050505">
+  <title>MatchIQ — Football Prediction Intelligence</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css', v='20260902-7') }}">
+</head>
+<body>
+  <a class="skip-link" href="#predictor" data-i18n="skip">Lewati ke prediktor</a>
+  <div class="ambient ambient-top" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Navigasi utama">
+      <a class="brand" href="#home" aria-label="MatchIQ home">
+        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" width="32" height="32">
+        <span>MatchIQ</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#predictor" data-i18n="nav_predictor">Prediktor</a>
+        <a href="#model" data-i18n="nav_model">Model</a>
+        <a href="#about" data-i18n="nav_about">Tentang</a>
+      </div>
+
+      <div class="nav-actions">
+        <span class="local-status"><i></i><span data-i18n="local">Lokal</span></span>
+        <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language">
+          <span class="language-option active" data-lang-option="id">ID</span>
+          <span class="language-option" data-lang-option="en">EN</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell" id="home">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse"></span><span data-i18n="hero_eyebrow">HYBRID AI • DIXON-COLES + XGBOOST</span></p>
+        <h1>
+          <span data-i18n="hero_line_one">Lihat pertandingan.</span>
+          <span class="text-gradient" data-i18n="hero_line_two">Sebelum terjadi.</span>
+        </h1>
+        <p class="hero-lead" data-i18n="hero_lead">Ubah data historis menjadi probabilitas pertandingan yang jernih, cepat, dan mudah dibaca.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#predictor">
+            <span data-i18n="hero_cta">Mulai prediksi</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg>
+          </a>
+          <a class="button button-secondary" href="#model" data-i18n="hero_secondary">Pelajari model</a>
+        </div>
+      </div>
+
+      <div class="signal" aria-hidden="true">
+        <div class="signal-line signal-line-one"></div>
+        <div class="signal-line signal-line-two"></div>
+        <div class="signal-line signal-line-three"></div>
+        <div class="signal-node signal-node-one"></div>
+        <div class="signal-node signal-node-two"></div>
+        <div class="signal-node signal-node-three"></div>
+      </div>
+    </section>
+
+    <section class="predictor-section shell" id="predictor">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker" data-i18n="predict_kicker">MATCH LAB</p>
+          <h2 data-i18n="predict_title">Prediksi satu pertandingan.</h2>
+        </div>
+        <p data-i18n="predict_intro">Pilih dua tim. MatchIQ menggabungkan distribusi skor dan machine learning menjadi satu analisis.</p>
+      </div>
+
+      <div class="predict-shell">
+        <form class="match-form" id="prediction-form">
+          <div class="competition-field">
+            <div>
+              <label for="competition" data-i18n="competition">Kompetisi</label>
+              <small id="competition-hint" data-i18n="competition_hint">Model dan daftar tim mengikuti kompetisi yang dipilih.</small>
+            </div>
+            <div class="compact-select competition-select">
+              <select id="competition" name="competition" aria-describedby="competition-hint"></select>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+            </div>
+          </div>
+
+          <div class="team-field">
+            <label for="home-team" data-i18n="home_team">Tim kandang</label>
+            <div class="select-control">
+              <span class="team-flag" id="home-flag" aria-hidden="true">🇫🇷</span>
+              <select id="home-team" name="home_team" required aria-describedby="home-hint"></select>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+            </div>
+            <small id="home-hint" data-i18n="home_hint">Sisi kiri simulasi</small>
+          </div>
+
+          <button class="swap-button" id="swap-teams" type="button" aria-label="Tukar tim" title="Tukar tim">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h11m0 0-3-3m3 3-3 3M16 14H5m0 0 3-3m-3 3 3 3"/></svg>
+          </button>
+
+          <div class="team-field">
+            <label for="away-team" data-i18n="away_team">Tim tandang</label>
+            <div class="select-control">
+              <span class="team-flag" id="away-flag" aria-hidden="true">🏴</span>
+              <select id="away-team" name="away_team" required aria-describedby="away-hint"></select>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+            </div>
+            <small id="away-hint" data-i18n="away_hint">Sisi kanan simulasi</small>
+          </div>
+
+          <div class="handicap-field">
+            <label for="handicap" data-i18n="handicap">Handicap kandang</label>
+            <div class="compact-select">
+              <select id="handicap" name="handicap">
+                <option value="-3.5">-3.5</option>
+                <option value="-2.5">-2.5</option>
+                <option value="-2">-2.0</option>
+                <option value="-1.5" selected>-1.5</option>
+                <option value="-1">-1.0</option>
+                <option value="-0.5">-0.5</option>
+                <option value="0">0</option>
+                <option value="0.5">+0.5</option>
+                <option value="1">+1.0</option>
+                <option value="1.5">+1.5</option>
+                <option value="2">+2.0</option>
+                <option value="2.5">+2.5</option>
+              </select>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+            </div>
+            <small data-i18n="handicap_hint">Opsional untuk analisis HDP</small>
+          </div>
+
+          <button class="button analyze-button" id="analyze-button" type="submit">
+            <span data-button-label data-i18n="analyze">Analisis pertandingan</span>
+            <span class="button-loader" aria-hidden="true"></span>
+          </button>
+        </form>
+
+        <div class="status-message" id="status-message" role="alert" hidden></div>
+
+        <div class="result-content" id="result-content" hidden aria-live="polite">
+          <div class="result-divider"></div>
+
+          <header class="match-header">
+            <div class="match-team match-team-home">
+              <div>
+                <span class="side-label" data-i18n="home_short">KANDANG</span>
+                <h3 id="result-home-name">France</h3>
+              </div>
+            </div>
+
+            <div class="score-call">
+              <span class="model-chip" id="result-model-chip">MATCHIQ · WC</span>
+              <div class="score-display" id="result-score" aria-label="Skor 2 banding 1">
+                <strong class="score-number" id="result-score-home">2</strong>
+                <span class="score-separator" aria-hidden="true">:</span>
+                <strong class="score-number" id="result-score-away">1</strong>
+              </div>
+              <span id="result-outcome">France unggul</span>
+            </div>
+
+            <div class="match-team match-team-away">
+              <div>
+                <span class="side-label" data-i18n="away_short">TANDANG</span>
+                <h3 id="result-away-name">England</h3>
+              </div>
+            </div>
+          </header>
+
+          <div class="metric-rail">
+            <div>
+              <span data-i18n="expected_goals">Expected goals</span>
+              <strong><span id="xg-home">—</span><i>:</i><span id="xg-away">—</span></strong>
+            </div>
+            <div>
+              <span data-i18n="model_confidence">Kejelasan prediksi</span>
+              <strong id="confidence-value">—</strong>
+            </div>
+            <div>
+              <span data-i18n="data_depth">Kedalaman data</span>
+              <strong id="data-quality">—</strong>
+            </div>
+            <div>
+              <span data-i18n="model_version">Model</span>
+              <strong>Hybrid v3</strong>
+            </div>
+          </div>
+
+          <section class="result-section outcome-section" aria-labelledby="outcome-title">
+            <div class="result-section-title">
+              <p class="section-kicker">01 / 1X2</p>
+              <h3 id="outcome-title" data-i18n="outcome_title">Probabilitas hasil</h3>
+            </div>
+            <div class="outcome-list">
+              <div class="outcome-row">
+                <div class="outcome-label"><span id="outcome-home-name">Home</span><strong id="outcome-home-value">—</strong></div>
+                <div class="probability-track"><i id="outcome-home-bar"></i></div>
+              </div>
+              <div class="outcome-row">
+                <div class="outcome-label"><span data-i18n="draw">Seri</span><strong id="outcome-draw-value">—</strong></div>
+                <div class="probability-track"><i id="outcome-draw-bar"></i></div>
+              </div>
+              <div class="outcome-row">
+                <div class="outcome-label"><span id="outcome-away-name">Away</span><strong id="outcome-away-value">—</strong></div>
+                <div class="probability-track"><i id="outcome-away-bar"></i></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="result-section score-analysis" aria-labelledby="score-title">
+            <div class="score-visual">
+              <div class="result-section-title compact-title">
+                <p class="section-kicker">02 / SCORE MAP</p>
+                <h3 id="score-title" data-i18n="score_map">Peta probabilitas skor</h3>
+              </div>
+              <div class="heatmap-wrap">
+                <span class="heatmap-y-label" data-i18n="home_goals">Gol kandang</span>
+                <div class="heatmap" id="score-heatmap" aria-label="Score probability heatmap"></div>
+                <span class="heatmap-x-label" data-i18n="away_goals">Gol tandang</span>
+              </div>
+            </div>
+
+            <div class="top-scores">
+              <div class="result-section-title compact-title">
+                <p class="section-kicker">TOP 10</p>
+                <h3 data-i18n="likely_scores">Skor paling mungkin</h3>
+              </div>
+              <div class="score-table" role="table" aria-label="Most likely scores">
+                <div class="score-table-head" role="row">
+                  <span data-i18n="rank">#</span>
+                  <span data-i18n="score">Skor</span>
+                  <span data-i18n="probability">Probabilitas</span>
+                  <span data-i18n="tier">Level</span>
+                </div>
+                <div id="top-score-rows"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="result-section goals-section" aria-labelledby="goals-title">
+            <div class="result-section-title compact-title">
+              <p class="section-kicker">03 / GOALS</p>
+              <h3 id="goals-title" data-i18n="goal_markets">Pola gol</h3>
+            </div>
+            <div class="goals-layout">
+              <div class="btts-visual">
+                <div class="donut" id="btts-donut">
+                  <div><strong id="btts-value">—</strong><span>BTTS</span></div>
+                </div>
+                <div>
+                  <span class="detail-label" data-i18n="both_score">Kedua tim mencetak gol</span>
+                  <strong id="btts-call">—</strong>
+                  <p data-i18n="btts_note">Probabilitas setidaknya satu gol dari masing-masing tim.</p>
+                </div>
+              </div>
+              <div class="ou-chart" id="over-under-chart"></div>
+            </div>
+          </section>
+
+          <section class="result-section extended-section" aria-labelledby="extended-title">
+            <div class="result-section-title compact-title">
+              <p class="section-kicker">04 / DEEP READ</p>
+              <h3 id="extended-title" data-i18n="extended_title">Analisis lanjutan</h3>
+            </div>
+
+            <div class="extended-rail">
+              <div class="extended-item">
+                <span data-i18n="to_qualify">Peluang lolos</span>
+                <strong id="qualify-call">—</strong>
+                <small id="qualify-detail">—</small>
+              </div>
+              <div class="extended-item">
+                <span data-i18n="handicap_cover">Menutup handicap</span>
+                <strong id="handicap-call">—</strong>
+                <small id="handicap-detail">—</small>
+              </div>
+              <div class="extended-item">
+                <span data-i18n="odd_even">Ganjil / genap</span>
+                <strong id="odd-even-call">—</strong>
+                <small id="odd-even-detail">—</small>
+              </div>
+              <div class="extended-item">
+                <span data-i18n="resilience">Resiliensi</span>
+                <strong id="resilience-call">—</strong>
+                <small id="resilience-detail">—</small>
+              </div>
+            </div>
+
+            <div class="secondary-markets">
+              <div>
+                <span data-i18n="double_chance">Double chance</span>
+                <p id="double-chance-values">—</p>
+              </div>
+              <div>
+                <span data-i18n="win_to_nil">Menang tanpa kebobolan</span>
+                <p id="win-to-nil-values">—</p>
+              </div>
+              <div>
+                <span data-i18n="exact_goals">Total gol tepat</span>
+                <p id="exact-goals-values">—</p>
+              </div>
+            </div>
+          </section>
+
+          <div class="result-note">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 9v5M10 6.5v.1"/></svg>
+            <p data-i18n="result_note">Probabilitas adalah estimasi model berdasarkan data historis, bukan kepastian hasil atau saran taruhan.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="model-section shell" id="model">
+      <div class="section-heading model-heading">
+        <div>
+          <p class="section-kicker" data-i18n="model_kicker">DI DALAM MODEL</p>
+          <h2 data-i18n="model_title">Dua perspektif. Satu probabilitas.</h2>
+        </div>
+        <p data-i18n="model_intro">Mesin statistik membaca distribusi skor. Model pembelajaran mesin membaca pola performa. MatchIQ menyatukan keduanya.</p>
+      </div>
+
+      <div class="model-flow">
+        <article>
+          <span>01</span>
+          <div class="model-icon model-icon-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <h3>Dixon–Coles</h3>
+          <p data-i18n="model_dc">Mengestimasi gol dan seluruh kombinasi skor, dengan koreksi khusus untuk skor rendah.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <div class="model-icon model-icon-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <h3>XGBoost</h3>
+          <p data-i18n="model_xgb">Membaca form, ELO, serangan, pertahanan, clean sheet, dan 30+ fitur time-aware.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <div class="model-icon model-icon-orbit" aria-hidden="true"><i></i><b></b></div>
+          <h3>Hybrid v3</h3>
+          <p data-i18n="model_hybrid">Mengkalibrasi dan menggabungkan kedua keluaran agar analisis 1X2 dan pasar gol konsisten.</p>
+        </article>
+      </div>
+
+      <div class="blend-line" aria-label="Model blend">
+        <div class="blend-copy">
+          <span data-i18n="blend_label">Komposisi prediksi</span>
+          <strong>40% Dixon–Coles <i>+</i> 60% XGBoost</strong>
+        </div>
+        <div class="blend-track"><i></i><b></b></div>
+      </div>
+    </section>
+
+    <section class="about-section shell" id="about">
+      <div class="about-copy">
+        <p class="section-kicker" data-i18n="about_kicker">TENTANG MATCHIQ</p>
+        <h2 data-i18n="about_title">Analisis yang terasa ringan, tanpa menyederhanakan modelnya.</h2>
+      </div>
+      <div class="about-text">
+        <p data-i18n="about_body">MatchIQ menyatukan prediksi Piala Dunia dan Liga Champions dalam satu aplikasi lokal, dengan dataset dan runtime yang tetap terpisah.</p>
+        <div class="privacy-line"><span></span><p data-i18n="privacy">Berjalan di localhost. Tidak ada akun, pelacak, atau data pertandingan yang dikirim keluar.</p></div>
+      </div>
+    </section>
+
+    <section class="final-cta shell">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" width="42" height="42">
+      <h2 data-i18n="cta_title">Pertandingan berikutnya sudah menunggu.</h2>
+      <p data-i18n="cta_body">Pilih dua tim dan lihat bagaimana data membaca pertandingannya.</p>
+      <a class="button button-primary" href="#predictor" data-i18n="cta_button">Buat prediksi</a>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <div class="brand footer-brand">
+      <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" width="26" height="26">
+      <span>MatchIQ</span>
+    </div>
+    <p>Hybrid AI v3 · Flask · <span data-i18n="footer_local">Local-first</span></p>
+    <p>© 2026 MatchIQ</p>
+  </footer>
+
+  <noscript>MatchIQ membutuhkan JavaScript untuk menampilkan prediksi interaktif.</noscript>
+  <script src="{{ url_for('static', filename='js/app.js', v='20260902-5') }}" defer></script>
+</body>
+</html>

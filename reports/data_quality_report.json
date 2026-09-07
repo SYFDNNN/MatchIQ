@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "checks": {
+    "main_matches": 1997,
+    "all_matches": 2179,
+    "canonical_teams": 161,
+    "seasons": 15,
+    "duplicate_match_ids": 0,
+    "missing_required_values": 0,
+    "checksum_files_verified": 6
+  }
+}

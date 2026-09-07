@@ -1,0 +1,216 @@
+{
+  "package": "MatchIQ_UCL_Dataset",
+  "generated_utc": "2026-09-02T08:25:30.908057+00:00",
+  "excluded_support_artifacts": [
+    "*.inspect.ndjson",
+    "reports/qa_*.png"
+  ],
+  "file_count_excluding_inventory": 41,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3428,
+      "sha256": "d11de10a3c9e148e7953602649bf5a6a87cff981591011a66656f6d85599c620"
+    },
+    {
+      "path": "config/dataset_manifest.json",
+      "bytes": 4586,
+      "sha256": "ac3c8dfcb2087e619709b221c7e527109085f4e9e7dd073a05df8313b0e3a1a3"
+    },
+    {
+      "path": "config/model_registry_entry.json",
+      "bytes": 287,
+      "sha256": "b9e665b0e71b3ab552854e840254c0cc5b22b7852fd6cecb3f3cdf9a517b0284"
+    },
+    {
+      "path": "config/schema.json",
+      "bytes": 1263,
+      "sha256": "17440db12ff6d64a20f3cf4c6370ee7175527e43b0a61b790099e7ad8e479781"
+    },
+    {
+      "path": "config/ucl_training_config.json",
+      "bytes": 1459,
+      "sha256": "5a15685105e0257a4664f4a8070a8484790f716707fa4d0c6294b99ecee1263c"
+    },
+    {
+      "path": "data/processed/ucl_matches.csv",
+      "bytes": 723624,
+      "sha256": "d9bb47aea1dbe34346d72c76072d43a0008c202cdfa800c48783b1b210155b64"
+    },
+    {
+      "path": "data/processed/ucl_matches_all.csv",
+      "bytes": 787436,
+      "sha256": "9534a31c0c94f3157f6bc40a0b269507193321fd02632aa940cb454d9fb29aea"
+    },
+    {
+      "path": "data/processed/ucl_matches_matchiq.csv",
+      "bytes": 170583,
+      "sha256": "32abc578f9236ca450154ad26908f247212351922c61ba3afd8e432996cdcc42"
+    },
+    {
+      "path": "data/processed/ucl_season_summary.csv",
+      "bytes": 758,
+      "sha256": "76b41cb96bc78c3c48a2eef580df5bc9abf7f932b924e2121103ec56e31db50e"
+    },
+    {
+      "path": "data/processed/ucl_team_aliases.csv",
+      "bytes": 9818,
+      "sha256": "6106d25dca000e4cd23d320e5d3f05b050bbac9ea0b92d055a40762ff3da91ea"
+    },
+    {
+      "path": "data/processed/ucl_teams.csv",
+      "bytes": 15723,
+      "sha256": "ede25628e7e42bc45395b8af4d2115bf5c6112e0c29e9e58d926aecfe819d140"
+    },
+    {
+      "path": "data/raw/openfootball/2011-12/cl.txt",
+      "bytes": 10477,
+      "sha256": "5820927a22fdf615d88120a50f770eeed2e2105daf9b0582963a5d67331b9060"
+    },
+    {
+      "path": "data/raw/openfootball/2012-13/cl.txt",
+      "bytes": 10400,
+      "sha256": "1a60314a79ce760cc718eaab7cc5ab1d4f1534eeb788e19f0d102926988ccff5"
+    },
+    {
+      "path": "data/raw/openfootball/2013-14/cl.txt",
+      "bytes": 10476,
+      "sha256": "94f5ad78f136f476075bfc2efa15e0993e7a3646b3cd6792bd5bbf43f990b2ad"
+    },
+    {
+      "path": "data/raw/openfootball/2014-15/cl.txt",
+      "bytes": 10454,
+      "sha256": "d6d77f60e415ae5e61e1fdb274d61fe54d6525e2fa6bd7284e343c2e7deee479"
+    },
+    {
+      "path": "data/raw/openfootball/2015-16/cl.txt",
+      "bytes": 10471,
+      "sha256": "09b7c605a6c723ffd85b9cb8a36f6bcf427485b9b0427b49014da22d455a8d8c"
+    },
+    {
+      "path": "data/raw/openfootball/2016-17/cl.txt",
+      "bytes": 10446,
+      "sha256": "fe604207c9e945d2a76ed9d660b5499c4680d8b474aeeb166d585f819c029a31"
+    },
+    {
+      "path": "data/raw/openfootball/2017-18/cl.txt",
+      "bytes": 10389,
+      "sha256": "5f022938be481f3f9fa88fa7580033aab631a9dd321170d2e7b7ee558c92e468"
+    },
+    {
+      "path": "data/raw/openfootball/2018-19/cl.txt",
+      "bytes": 10379,
+      "sha256": "7ae98396b779c3e97d049e77bbd0af6dabedcecdd73fa17d27a212aadd18c727"
+    },
+    {
+      "path": "data/raw/openfootball/2019-20/cl.txt",
+      "bytes": 9967,
+      "sha256": "e0f6d8990b3110108193eecdcd698dfa48b6f324ffa7532cdc11aea19f7ee419"
+    },
+    {
+      "path": "data/raw/openfootball/2020-21/cl.txt",
+      "bytes": 10495,
+      "sha256": "9d94e40aa2fe2e98cbe5eedcffb7b9223daaaf3acf682411f4965f92a65d666e"
+    },
+    {
+      "path": "data/raw/openfootball/2021-22/cl.txt",
+      "bytes": 10428,
+      "sha256": "36241f4479aa9efda62c62318366bbf36f84cc8719f6387c5747cb5dea7ec519"
+    },
+    {
+      "path": "data/raw/openfootball/2022-23/cl.txt",
+      "bytes": 10399,
+      "sha256": "bf9cd05939b055f12ee9b095bec1c20a0922277bef8940172218548de2e7b93a"
+    },
+    {
+      "path": "data/raw/openfootball/2023-24/cl.txt",
+      "bytes": 10428,
+      "sha256": "5872bee720b32410f28c5272fb7fe7b07aa0f66bcb31ffe157893d75c14c47c5"
+    },
+    {
+      "path": "data/raw/openfootball/2024-25/cl.txt",
+      "bytes": 15374,
+      "sha256": "c2692b22af02c5df4587b69c5f430aebf7d936845b5337aee462ce8e649eb1b5"
+    },
+    {
+      "path": "data/raw/openfootball/2024-25/clq.txt",
+      "bytes": 7157,
+      "sha256": "a39cc3ed20233ce2fcc490d4feda4a67dacf0d8080c83f4078ab34eca4632c25"
+    },
+    {
+      "path": "data/raw/openfootball/2025-26/cl.txt",
+      "bytes": 15265,
+      "sha256": "2b1877308587ff1004c21b8e961b9050b8754f968244e0635eb005040fd9d5cb"
+    },
+    {
+      "path": "data/raw/openfootball/2025-26/clq.txt",
+      "bytes": 7287,
+      "sha256": "2212922ca831a0ebb4bb8be07575392f53f1294acc47ffab15c7a1ad121f7d37"
+    },
+    {
+      "path": "data/raw/openfootball/LICENSE.md",
+      "bytes": 6555,
+      "sha256": "36ffd9dc085d529a7e60e1276d73ae5a030b020313e6c5408593a6ae2af39673"
+    },
+    {
+      "path": "data/raw/openfootball/README.md",
+      "bytes": 2129,
+      "sha256": "16445303b84e92f828605f74895abd26d2d098f41eac85577fd6799330ecb6aa"
+    },
+    {
+      "path": "data/raw/openfootball/SOURCE_COMMIT.txt",
+      "bytes": 41,
+      "sha256": "0aef3fc0b5073d5c0bfd8f8cd8a6353cbee173e4a0148d12aae8cb0c53f65b78"
+    },
+    {
+      "path": "reports/data_dictionary.md",
+      "bytes": 2834,
+      "sha256": "5241cfb2b3ada111582ba09dedb8c1737f5d287e210a5e3071f48d57cf1ed539"
+    },
+    {
+      "path": "reports/data_quality_report.json",
+      "bytes": 239,
+      "sha256": "fcd90320a9dcfaf9be8a6495abd9c7184726391f7e25aee1b60448288100f5e1"
+    },
+    {
+      "path": "reports/known_limitations.md",
+      "bytes": 1494,
+      "sha256": "66ae5ac902c18599322a32107137cbf1202cefc4ba10ae2207feed3f837cdb86"
+    },
+    {
+      "path": "reports/source_attribution.md",
+      "bytes": 621,
+      "sha256": "59be7de26a6fe1bc82a7c23fdf77af44de94e4b283a292aa284dbba19aca8d0a"
+    },
+    {
+      "path": "reports/ucl_dataset_overview.xlsx",
+      "bytes": 454353,
+      "sha256": "cf1053863c11e5b6376dde0f1fbdc55d604373b5170c324d51d6ea4f6cc10195"
+    },
+    {
+      "path": "reports/ucl_dataset_overview_preview.png",
+      "bytes": 307350,
+      "sha256": "2066e63b0e50c7491697e82b228d9bf5d8b0ff5943527f26b89dbe5a82449d28"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 71,
+      "sha256": "048e75e51fb9a242c0ba2c5e158290c4d57c30de5bc1faef651424ab47a1ce3d"
+    },
+    {
+      "path": "scripts/build_ucl_dataset.py",
+      "bytes": 23995,
+      "sha256": "23a3e43814ccaa502dc739908b141ba8e1cbd694470abf3d9b9c4883d3f72c56"
+    },
+    {
+      "path": "scripts/package_ucl_dataset.py",
+      "bytes": 2739,
+      "sha256": "f37d012a05a2bfa817a0971768681f1332adb191ae2e830399a7cc0fd7e29462"
+    },
+    {
+      "path": "scripts/validate_ucl_dataset.py",
+      "bytes": 3898,
+      "sha256": "7b35ae12caa3c5078067fb395fa19b5ed4229cc70d5da75de5a083546c40d2c1"
+    }
+  ]
+}

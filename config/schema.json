@@ -1,0 +1,41 @@
+{
+  "primary_key": "match_id",
+  "required_columns": [
+    "match_id", "competition", "season", "date", "kickoff_datetime", "stage",
+    "home_team_id", "away_team_id", "home_team", "away_team", "home_goals",
+    "away_goals", "result", "home_elo_pre", "away_elo_pre"
+  ],
+  "column_types": {
+    "match_id": "string",
+    "competition": "string",
+    "season": "string",
+    "date": "date:yyyy-mm-dd",
+    "kickoff_time": "time:HH:MM",
+    "kickoff_datetime": "datetime:ISO-8601",
+    "stage_raw": "string",
+    "stage": "category",
+    "stage_order": "integer",
+    "matchday": "nullable_integer",
+    "group": "nullable_string",
+    "leg": "category",
+    "is_qualifier": "boolean_integer",
+    "neutral": "boolean_integer",
+    "home_team_id": "string",
+    "away_team_id": "string",
+    "home_team": "string",
+    "away_team": "string",
+    "home_goals": "integer",
+    "away_goals": "integer",
+    "home_goals_final": "integer",
+    "away_goals_final": "integer",
+    "home_penalty": "nullable_integer",
+    "away_penalty": "nullable_integer",
+    "result": "category:H|D|A",
+    "total_goals": "integer",
+    "goal_diff": "integer",
+    "btts": "boolean_integer",
+    "home_elo_pre": "float",
+    "away_elo_pre": "float",
+    "elo_diff_pre": "float"
+  }
+}

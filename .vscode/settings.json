@@ -1,0 +1,7 @@
+{
+  "python.defaultInterpreterPath": "${env:LOCALAPPDATA}\\piala-dunia-26-hybrid-ai-v4-venv\\Scripts\\python.exe",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}"
+  ]
+}

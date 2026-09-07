@@ -1,0 +1,162 @@
+team_id,team_name,association_code,latest_elo,matches,goals_for,goals_against,first_season,last_season,last_match_date,source_variants
+ucl-bayern-munich,Bayern Munich,GER,1674.54,173,429,172,2011-12,2025-26,2026-05-06,Bayern München | FC Bayern München
+ucl-paris-saint-germain,Paris Saint-Germain,FRA,1652.41,149,321,166,2012-13,2025-26,2026-05-30,Paris Saint-Germain | Paris Saint-Germain FC
+ucl-arsenal-fc,Arsenal FC,ENG,1650.0,87,163,96,2011-12,2025-26,2026-05-30,Arsenal FC
+ucl-real-madrid,Real Madrid,ESP,1630.07,182,410,206,2011-12,2025-26,2026-04-15,Real Madrid | Real Madrid CF
+ucl-fc-barcelona,FC Barcelona,ESP,1607.2,154,338,185,2011-12,2025-26,2026-04-14,FC Barcelona
+ucl-liverpool-fc,Liverpool FC,ENG,1599.31,93,190,97,2014-15,2025-26,2026-04-14,Liverpool FC
+ucl-manchester-city,Manchester City,ENG,1591.02,145,303,175,2011-12,2025-26,2026-03-17,Manchester City | Manchester City FC
+ucl-inter-milan,Inter Milan,ITA,1583.88,80,114,87,2011-12,2025-26,2026-02-24,FC Internazionale Milano | Inter
+ucl-atletico-madrid,Atlético Madrid,ESP,1567.62,131,200,135,2013-14,2025-26,2026-05-05,Atlético Madrid | Club Atlético de Madrid
+ucl-chelsea-fc,Chelsea FC,ENG,1563.37,106,197,112,2011-12,2025-26,2026-03-17,Chelsea FC
+ucl-borussia-dortmund,Borussia Dortmund,GER,1557.16,130,228,176,2011-12,2025-26,2026-02-25,Borussia Dortmund
+ucl-tottenham-hotspur,Tottenham Hotspur,ENG,1552.61,53,92,72,2016-17,2025-26,2026-03-18,Tottenham Hotspur | Tottenham Hotspur FC
+ucl-juventus,Juventus,ITA,1545.52,120,185,124,2012-13,2025-26,2026-02-25,Juventus | Juventus FC
+ucl-fk-bod-glimt,FK Bodø/Glimt,NOR,1543.42,20,42,27,2024-25,2025-26,2026-03-17,FK Bodø/Glimt
+ucl-aston-villa-fc,Aston Villa FC,ENG,1541.71,12,23,12,2024-25,2024-25,2025-04-15,Aston Villa FC
+ucl-fc-porto,FC Porto,POR,1529.89,94,145,112,2011-12,2023-24,2024-03-12,FC Porto
+ucl-newcastle-united-fc,Newcastle United FC,ENG,1528.44,18,35,25,2023-24,2025-26,2026-03-18,Newcastle United FC
+ucl-ferencvarosi-tc,Ferencvárosi TC,HUN,1523.51,16,26,30,2020-21,2025-26,2025-08-27,Ferencvárosi TC
+ucl-sporting-cp,Sporting CP,POR,1523.21,54,80,85,2014-15,2025-26,2026-04-15,Sporting CP | Sporting Clube de Portugal
+ucl-pafos-fc,Pafos FC,CYP,1522.9,14,16,14,2025-26,2025-26,2026-01-28,Pafos FC | Paphos FC
+ucl-bayer-leverkusen,Bayer Leverkusen,GER,1522.05,72,91,105,2011-12,2025-26,2026-03-17,Bayer 04 Leverkusen | Bayer Leverkusen
+ucl-ssc-napoli,SSC Napoli,ITA,1516.32,68,115,93,2011-12,2025-26,2026-01-28,SSC Napoli
+ucl-lille-osc,Lille OSC,FRA,1514.18,40,46,58,2011-12,2024-25,2025-03-12,Lille OSC
+ucl-paok-saloniki,PAOK Saloniki,GRE,1514.12,4,9,7,2024-25,2024-25,2024-08-13,PAOK Saloniki
+ucl-ac-milan,AC Milan,ITA,1514.1,60,75,75,2011-12,2024-25,2025-02-18,AC Milan
+ucl-club-brugge-kv,Club Brugge KV,BEL,1513.84,64,79,118,2016-17,2025-26,2026-02-24,Club Brugge KV
+ucl-lazio,Lazio,ITA,1512.51,16,21,23,2020-21,2023-24,2024-03-05,Lazio Roma | SS Lazio
+ucl-fc-k-benhavn,FC København,DEN,1510.45,40,45,63,2013-14,2025-26,2026-01-28,FC København
+ucl-benfica,Benfica,POR,1509.59,116,155,166,2011-12,2025-26,2026-02-25,SL Benfica | Sport Lisboa e Benfica
+ucl-kuopion-ps,Kuopion PS,FIN,1509.11,4,3,3,2025-26,2025-26,2025-07-29,Kuopion PS
+ucl-nk-celje,NK Celje,SVN,1508.04,4,8,7,2024-25,2024-25,2024-07-30,NK Celje
+ucl-dinamo-minsk,Dinamo Minsk,BLR,1507.68,6,4,4,2024-25,2025-26,2025-07-16,Dinamo Minsk
+ucl-lech-poznan,Lech Poznań,POL,1507.25,4,10,5,2025-26,2025-26,2025-08-12,Lech Poznań
+ucl-zrinjski-mostar,Zrinjski Mostar,BIH,1506.52,4,6,7,2025-26,2025-26,2025-07-29,Zrinjski Mostar
+ucl-ki-klaksvik,KÍ Klaksvík,FRO,1506.46,4,6,6,2024-25,2024-25,2024-07-30,KÍ Klaksvík
+ucl-atalanta,Atalanta,ITA,1506.41,45,78,77,2019-20,2025-26,2026-03-18,Atalanta | Atalanta BC
+ucl-as-roma,AS Roma,ITA,1505.79,34,54,64,2014-15,2018-19,2019-03-06,AS Roma
+ucl-fenerbahce,Fenerbahçe,TUR,1505.51,8,14,11,2024-25,2025-26,2025-08-27,Fenerbahçe
+ucl-leicester-city,Leicester City,ENG,1504.95,10,11,10,2016-17,2016-17,2017-04-18,Leicester City
+ucl-real-sociedad,Real Sociedad,ESP,1504.74,14,9,16,2013-14,2023-24,2024-03-05,Real Sociedad | Real Sociedad de Fútbol
+ucl-fc-midtjylland,FC Midtjylland,DEN,1504.72,12,14,18,2020-21,2024-25,2024-08-28,FC Midtjylland
+ucl-fc-schalke-04,FC Schalke 04,GER,1502.32,32,42,58,2012-13,2018-19,2019-03-12,FC Schalke 04
+ucl-malaga-cf,Málaga CF,ESP,1502.07,10,16,9,2012-13,2012-13,2013-04-09,Málaga CF
+ucl-olympique-lyonnais,Olympique Lyonnais,FRA,1501.93,38,47,50,2011-12,2019-20,2020-02-26,Olympique Lyonnais
+ucl-cfr-cluj,CFR Cluj,ROU,1501.18,6,9,7,2012-13,2012-13,2012-12-05,CFR Cluj
+ucl-inter-club-d-escaldes,Inter Club d'Escaldes,AND,1501.1,2,3,4,2025-26,2025-26,2025-07-15,Inter Club d'Escaldes
+ucl-valencia-cf,Valencia CF,ESP,1500.71,34,50,45,2011-12,2019-20,2020-03-10,Valencia CF
+ucl-jagiellonia-bia-ystok,Jagiellonia Białystok,POL,1500.47,4,8,6,2024-25,2024-25,2024-08-13,Jagiellonia Białystok
+ucl-dinamo-batumi,Dinamo Batumi,GEO,1499.94,2,2,3,2024-25,2024-25,2024-07-17,Dinamo Batumi
+ucl-trabzonspor,Trabzonspor,TUR,1499.94,6,3,5,2011-12,2011-12,2011-12-07,Trabzonspor
+ucl-egnatia-rrogozhine,Egnatia Rrogozhine,ALB,1499.91,4,3,7,2024-25,2025-26,2025-07-15,Egnatia Rrogozhine
+ucl-hnk-rijeka,HNK Rijeka,CRO,1499.73,2,1,1,2025-26,2025-26,2025-07-30,HNK Rijeka
+ucl-kf-shkendija-79,KF Shkëndija 79,MKD,1499.63,6,5,8,2025-26,2025-26,2025-08-12,KF Shkëndija 79
+ucl-fk-zalgiris,FK Žalgiris,LTU,1499.57,2,2,2,2025-26,2025-26,2025-07-15,FK Žalgiris
+ucl-kf-ballkani,KF Ballkani,KOS,1499.45,2,2,2,2024-25,2024-25,2024-07-16,KF Ballkani
+ucl-cs-petrocub,CS Petrocub,MDA,1499.06,4,2,2,2024-25,2024-25,2024-07-30,CS Petrocub
+ucl-racing-club-de-lens,Racing Club de Lens,FRA,1499.06,6,6,11,2023-24,2023-24,2023-12-12,Racing Club de Lens
+ucl-kaa-gent,KAA Gent,BEL,1498.63,8,10,11,2015-16,2015-16,2016-03-08,KAA Gent
+ucl-fk-rostov,FK Rostov,RUS,1498.18,6,6,12,2016-17,2016-17,2016-12-06,FK Rostov
+ucl-kf-drita,KF Drita,KOS,1497.85,4,4,5,2025-26,2025-26,2025-07-29,KF Drita
+ucl-austria-wien,Austria Wien,AUT,1497.8,6,5,10,2013-14,2013-14,2013-12-11,Austria Wien
+ucl-servette-fc,Servette FC,SUI,1497.64,2,2,3,2025-26,2025-26,2025-07-30,Servette FC
+ucl-fk-rfs,FK RFS,LVA,1497.22,8,11,12,2024-25,2025-26,2025-07-30,FK RFS
+ucl-qarabag-fk,Qarabağ FK,AZE,1497.15,28,44,58,2017-18,2025-26,2026-02-24,Qarabağ Ağdam FK | Qarabağ FK
+ucl-psv-eindhoven,PSV Eindhoven,NED,1496.82,48,66,84,2015-16,2025-26,2026-01-28,PSV | PSV Eindhoven
+ucl-fk-astana,FK Astana,KAZ,1496.76,6,5,11,2015-16,2015-16,2015-12-08,FK Astana
+ucl-ac-sparta-praha,AC Sparta Praha,CZE,1496.74,14,21,26,2024-25,2024-25,2025-01-29,AC Sparta Praha
+ucl-vfl-wolfsburg,VfL Wolfsburg,GER,1496.41,16,20,21,2015-16,2021-22,2021-12-08,VfL Wolfsburg
+ucl-fc-sheriff,FC Sheriff,MDA,1496.02,6,7,11,2021-22,2021-22,2021-12-07,FC Sheriff
+ucl-stade-brestois-29,Stade Brestois 29,FRA,1495.94,10,10,21,2024-25,2024-25,2025-02-19,Stade Brestois 29
+ucl-montpellier-hsc,Montpellier HSC,FRA,1495.7,6,6,12,2012-13,2012-13,2012-12-04,Montpellier HSC
+ucl-legia-warszawa,Legia Warszawa,POL,1495.63,6,9,24,2016-17,2016-17,2016-12-07,Legia Warszawa
+ucl-vfb-stuttgart,VfB Stuttgart,GER,1495.44,8,13,17,2024-25,2024-25,2025-01-29,VfB Stuttgart
+ucl-as-monaco,AS Monaco,MCO,1495.36,54,65,91,2014-15,2025-26,2026-02-25,AS Monaco | AS Monaco FC
+ucl-fc-nordsj-lland,FC Nordsjælland,DEN,1494.54,6,4,22,2012-13,2012-13,2012-12-05,FC Nordsjælland
+ucl-otelul-galati,Oţelul Galaţi,ROU,1494.33,6,3,11,2011-12,2011-12,2011-12-07,Oţelul Galaţi
+ucl-malmo-ff,Malmö FF,SWE,1494.02,30,28,71,2014-15,2025-26,2025-08-12,Malmö FF
+ucl-manchester-united,Manchester United,ENG,1493.59,68,108,84,2011-12,2023-24,2023-12-12,Manchester United | Manchester United FC
+ucl-fk-krasnodar,FK Krasnodar,RUS,1493.5,6,6,11,2020-21,2020-21,2020-12-08,FK Krasnodar
+ucl-spartak-moskva,Spartak Moskva,RUS,1493.39,12,16,27,2012-13,2017-18,2017-12-06,Spartak Moskva
+ucl-feyenoord,Feyenoord,NED,1493.16,26,39,56,2017-18,2025-26,2025-08-12,Feyenoord | Feyenoord Rotterdam
+ucl-fk-decic-tuzi,FK Dečić Tuzi,MNE,1491.89,2,1,4,2024-25,2024-25,2024-07-16,FK Dečić Tuzi
+ucl-hjk-helsinki,HJK Helsinki,FIN,1491.89,2,1,4,2024-25,2024-25,2024-07-16,HJK Helsinki
+ucl-fk-ordabasy,FK Ordabasy,KAZ,1491.59,2,0,1,2024-25,2024-25,2024-07-17,FK Ordabasy
+ucl-vikingur-reykjavik,Víkingur Reykjavík,ISL,1491.59,2,1,2,2024-25,2024-25,2024-07-16,Víkingur Reykjavík
+ucl-shamrock-rovers,Shamrock Rovers,IRL,1491.52,4,4,7,2024-25,2024-25,2024-07-30,Shamrock Rovers
+ucl-pyunik-fc,Pyunik FC,ARM,1491.41,2,0,1,2024-25,2024-25,2024-07-16,Pyunik FC
+ucl-fk-panevezys,FK Panevėžys,LTU,1491.23,4,5,8,2024-25,2024-25,2024-07-31,FK Panevėžys
+ucl-1899-hoffenheim,1899 Hoffenheim,GER,1491.21,6,11,14,2018-19,2018-19,2018-12-12,1899 Hoffenheim
+ucl-the-new-saints,The New Saints,WAL,1490.79,6,6,9,2024-25,2025-26,2025-07-15,The New Saints
+ucl-fc-twente,FC Twente,NED,1490.52,2,4,5,2024-25,2024-25,2024-08-13,FC Twente
+ucl-bor-monchengladbach,Bor. Mönchengladbach,GER,1490.5,20,29,37,2015-16,2020-21,2021-03-16,Bor. Mönchengladbach
+ucl-dinamo-kiev,Dinamo Kiev,UKR,1490.49,42,47,56,2012-13,2025-26,2025-08-12,Dinamo Kiev
+ucl-fcsb,FCSB,ROU,1490.49,16,23,22,2013-14,2025-26,2025-07-30,FC Steaua Bucureşti | FCSB
+ucl-fc-milsami,FC Milsami,MDA,1490.46,2,0,1,2025-26,2025-26,2025-07-15,FC Milsami
+ucl-fk-buducnost-podgorica,FK Budućnost Podgorica,MNE,1490.46,2,2,3,2025-26,2025-26,2025-07-15,FK Budućnost Podgorica
+ucl-linfield-fc,Linfield FC,NIR,1490.46,2,1,2,2025-26,2025-26,2025-07-16,Linfield FC
+ucl-fc-basel-1893,FC Basel 1893,SUI,1490.37,38,42,61,2011-12,2025-26,2025-08-27,FC Basel 1893
+ucl-athletic-club,Athletic Club,ESP,1490.22,14,14,20,2014-15,2025-26,2026-01-28,Athletic Club
+ucl-olimpija-ljubljana,Olimpija Ljubljana,SVN,1490.1,2,1,3,2025-26,2025-26,2025-07-15,Olimpija Ljubljana
+ucl-fc-noah,FC Noah,ARM,1489.34,4,7,8,2025-26,2025-26,2025-07-30,FC Noah
+ucl-dinamo-zagreb,Dinamo Zagreb,CRO,1489.12,46,38,108,2011-12,2024-25,2025-01-29,Dinamo Zagreb | GNK Dinamo Zagreb
+ucl-shelbourne-fc,Shelbourne FC,IRL,1489.09,4,2,5,2025-26,2025-26,2025-07-30,Shelbourne FC
+ucl-nk-maribor,NK Maribor,SVN,1488.69,12,7,29,2014-15,2017-18,2017-12-06,NK Maribor
+ucl-panathinaikos,Panathinaikos,GRE,1488.49,2,1,3,2025-26,2025-26,2025-07-30,Panathinaikos
+ucl-apoel-nikosia,APOEL Nikosia,CYP,1488.44,26,14,47,2011-12,2024-25,2024-08-13,APOEL Nikosia
+ucl-sk-brann,SK Brann,NOR,1488.14,2,2,5,2025-26,2025-26,2025-07-30,SK Brann
+ucl-bate-borisov,BATE Borisov,BLR,1487.98,24,18,65,2011-12,2015-16,2015-12-09,BATE Borisov
+ucl-slovan-bratislava,Slovan Bratislava,SVK,1487.95,20,32,37,2024-25,2025-26,2025-08-12,Slovan Bratislava | ŠK Slovan Bratislava
+ucl-cska-moskva,CSKA Moskva,RUS,1487.61,44,51,82,2011-12,2018-19,2018-12-12,CSKA Moskva
+ucl-istanbul-basaksehir,İstanbul Başakşehir,TUR,1486.83,6,7,18,2020-21,2020-21,2020-12-09,İstanbul Başakşehir
+ucl-rsc-anderlecht,RSC Anderlecht,BEL,1485.93,24,18,53,2012-13,2017-18,2017-12-05,RSC Anderlecht
+ucl-rb-leipzig,RB Leipzig,GER,1485.7,54,88,97,2017-18,2024-25,2025-01-29,RB Leipzig
+ucl-pfc-ludogorets-razgrad,PFC Ludogorets Razgrad,BUL,1484.52,24,23,42,2014-15,2025-26,2025-08-12,PFC Ludogorets Razgrad
+ucl-fc-flora,FC Flora,EST,1483.55,2,1,7,2024-25,2024-25,2024-07-16,FC Flora
+ucl-fc-lugano,FC Lugano,SUI,1483.55,2,4,6,2024-25,2024-25,2024-07-30,FC Lugano
+ucl-fc-struga,FC Struga,MKD,1483.39,2,3,6,2024-25,2024-25,2024-07-17,FC Struga
+ucl-larne-fc,Larne FC,NIR,1483.39,2,0,7,2024-25,2024-25,2024-07-17,Larne FC
+ucl-ue-santa-coloma,UE Santa Coloma,AND,1483.38,4,2,6,2024-25,2024-25,2024-07-31,UE Santa Coloma
+ucl-aek-athen,AEK Athen,GRE,1483.23,6,2,13,2018-19,2018-19,2018-12-12,AEK Athen
+ucl-borac-banja-luka,Borac Banja Luka,BIH,1483.02,4,4,6,2024-25,2024-25,2024-07-31,Borac Banja Luka
+ucl-maccabi-haifa,Maccabi Haifa,ISR,1482.82,6,7,21,2022-23,2022-23,2022-11-02,Maccabi Haifa
+ucl-afc-ajax,AFC Ajax,NED,1482.4,70,109,111,2011-12,2025-26,2026-01-28,AFC Ajax
+ucl-bologna-fc-1909,Bologna FC 1909,ITA,1482.32,8,4,9,2024-25,2024-25,2025-01-29,Bologna FC 1909
+ucl-braga,Braga,POR,1482.15,12,13,25,2012-13,2023-24,2023-12-12,Sporting Braga | Sporting Clube de Braga
+ucl-partizan,Partizan,SRB,1481.92,2,2,9,2024-25,2024-25,2024-07-31,Partizan
+ucl-krc-genk,KRC Genk,BEL,1481.61,12,7,36,2011-12,2019-20,2019-12-10,KRC Genk
+ucl-ogc-nice,OGC Nice,FRA,1481.38,2,0,4,2025-26,2025-26,2025-08-12,OGC Nice
+ucl-olympiacos,Olympiacos,GRE,1481.33,60,69,105,2011-12,2025-26,2026-02-24,Olympiakos Piraeus | PAE Olympiakos SFP
+ucl-hamrun-spartans,Hamrun Spartans,MLT,1481.04,6,3,9,2024-25,2025-26,2025-07-29,Hamrun Spartans
+ucl-brei-ablik,Breiðablik,ISL,1480.91,4,6,9,2025-26,2025-26,2025-07-30,Breiðablik
+ucl-fci-levadia,FCI Levadia,EST,1480.6,2,0,2,2025-26,2025-26,2025-07-15,FCI Levadia
+ucl-stade-rennais,Stade Rennais,FRA,1480.26,6,3,11,2020-21,2020-21,2020-12-08,Stade Rennais
+ucl-lincoln-red-imps,Lincoln Red Imps,GIB,1480.23,8,6,16,2024-25,2025-26,2025-07-29,Lincoln Red Imps
+ucl-1-fc-union-berlin,1. FC Union Berlin,GER,1479.92,6,6,10,2023-24,2023-24,2023-12-12,1. FC Union Berlin
+ucl-vikingur,Víkingur,FRO,1479.72,2,2,4,2025-26,2025-26,2025-07-15,Víkingur
+ucl-fc-iberia-1999,FC Iberia 1999,GEO,1478.57,2,2,6,2025-26,2025-26,2025-07-15,FC Iberia 1999
+ucl-besiktas,Beşiktaş,TUR,1477.79,20,24,46,2016-17,2021-22,2021-12-07,Beşiktaş
+ucl-royal-antwerp-fc,Royal Antwerp FC,BEL,1476.45,6,6,17,2023-24,2023-24,2023-12-13,Royal Antwerp FC
+ucl-sturm-graz,Sturm Graz,AUT,1475.21,10,7,20,2024-25,2025-26,2025-08-26,SK Sturm Graz | Sturm Graz
+ucl-union-saint-gilloise,Union Saint-Gilloise,BEL,1474.86,10,9,21,2024-25,2025-26,2026-01-28,Royale Union Saint-Gilloise | Union Saint-Gilloise
+ucl-zenit-st-petersburg,Zenit St. Petersburg,RUS,1474.5,54,64,79,2011-12,2021-22,2021-12-08,Zenit St. Petersburg
+ucl-maccabi-tel-aviv,Maccabi Tel Aviv,ISR,1473.59,10,3,20,2015-16,2025-26,2025-07-30,Maccabi Tel Aviv
+ucl-lokomotiv-moskva,Lokomotiv Moskva,RUS,1473.29,18,13,33,2018-19,2020-21,2020-12-09,Lokomotiv Moskva
+ucl-fc-differdange-03,FC Differdange 03,LUX,1472.79,4,2,6,2024-25,2025-26,2025-07-15,FC Differdange 03
+ucl-galatasaray,Galatasaray,TUR,1471.6,62,66,119,2012-13,2025-26,2026-03-18,Galatasaray | Galatasaray SK
+ucl-viktoria-plzen,Viktoria Plzeň,CZE,1470.95,28,27,74,2011-12,2025-26,2025-08-12,Viktoria Plzeň
+ucl-celtic-fc,Celtic FC,SCO,1470.83,50,46,108,2012-13,2025-26,2025-08-26,Celtic FC
+ucl-shakhtar-donetsk,Shakhtar Donetsk,UKR,1470.55,86,109,154,2011-12,2024-25,2025-01-29,FK Shakhtar Donetsk | Shakhtar Donetsk
+ucl-sevilla-fc,Sevilla FC,ESP,1469.85,50,63,74,2015-16,2023-24,2023-12-12,Sevilla FC
+ucl-crvena-zvezda,Crvena Zvezda,SRB,1469.37,34,43,82,2018-19,2025-26,2025-08-26,Crvena Zvezda | FK Crvena Zvezda
+ucl-slavia-praha,Slavia Praha,CZE,1466.24,18,15,33,2019-20,2025-26,2026-01-28,SK Slavia Praha | Slavia Praha
+ucl-ss-virtus,SS Virtus,SMR,1464.9,4,2,15,2024-25,2025-26,2025-07-15,SS Virtus
+ucl-olympique-marseille,Olympique Marseille,FRA,1464.15,36,35,59,2011-12,2025-26,2026-01-28,Olympique Marseille | Olympique de Marseille
+ucl-girona-fc,Girona FC,ESP,1457.68,8,5,13,2024-25,2024-25,2025-01-29,Girona FC
+ucl-rangers-fc,Rangers FC,SCO,1457.28,14,11,37,2022-23,2025-26,2025-08-27,Rangers FC
+ucl-eintracht-frankfurt,Eintracht Frankfurt,GER,1456.55,16,17,34,2022-23,2025-26,2026-01-28,Eintracht Frankfurt
+ucl-villarreal-cf,Villarreal CF,ESP,1450.86,26,27,48,2011-12,2025-26,2026-01-28,Villarreal CF
+ucl-fk-kairat,FK Kairat,KAZ,1448.93,16,14,26,2025-26,2025-26,2026-01-28,FK Kairat
+ucl-rb-salzburg,RB Salzburg,AUT,1446.82,48,65,99,2019-20,2025-26,2025-08-12,FC Red Bull Salzburg | RB Salzburg
+ucl-bsc-young-boys,BSC Young Boys,SUI,1429.17,28,25,63,2018-19,2024-25,2025-01-29,BSC Young Boys

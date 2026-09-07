@@ -1,0 +1,43 @@
+{
+  "competition_id": "ucl",
+  "display_name": "UEFA Champions League",
+  "training_file": "data/processed/ucl_matches.csv",
+  "all_matches_file": "data/processed/ucl_matches_all.csv",
+  "matchiq_compatibility_file": "data/processed/ucl_matches_matchiq.csv",
+  "teams_file": "data/processed/ucl_teams.csv",
+  "include_qualifiers_by_default": false,
+  "score_target": "90_minutes",
+  "random_seed": 42,
+  "temporal_split": {
+    "train_seasons": [
+      "2011-12", "2012-13", "2013-14", "2014-15", "2015-16", "2016-17",
+      "2017-18", "2018-19", "2019-20", "2020-21", "2021-22", "2022-23"
+    ],
+    "calibration_seasons": ["2023-24"],
+    "validation_seasons": ["2024-25"],
+    "test_seasons": ["2025-26"]
+  },
+  "targets": {
+    "one_x_two": "result",
+    "home_goals": "home_goals",
+    "away_goals": "away_goals",
+    "btts": "btts",
+    "total_goals": "total_goals"
+  },
+  "pre_match_features": [
+    "home_elo_pre", "away_elo_pre", "elo_diff_pre", "home_matches_before",
+    "away_matches_before", "stage", "stage_order", "neutral", "leg"
+  ],
+  "exclude_from_training": [
+    "home_goals", "away_goals", "home_goals_final", "away_goals_final",
+    "home_goals_ht", "away_goals_ht", "home_penalty", "away_penalty", "result",
+    "total_goals", "goal_diff", "btts", "score_raw", "source_file", "source_line"
+  ],
+  "elo": {
+    "base": 1500.0,
+    "k_factor": 20.0,
+    "home_advantage": 65.0,
+    "season_carryover": 0.85,
+    "time_aware": true
+  }
+}

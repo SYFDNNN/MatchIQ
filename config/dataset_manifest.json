@@ -1,0 +1,182 @@
+{
+  "dataset_name": "MatchIQ UEFA Champions League Dataset",
+  "version": "1.0.0",
+  "generated_at": "2026-09-02T04:56:19Z",
+  "source": {
+    "name": "OpenFootball Champions League",
+    "url": "https://github.com/openfootball/champions-league",
+    "license": "CC0-1.0 / Public Domain",
+    "commit": "abfaeddc2ee3d14f99ecc163c9ddb46cb4d67cef"
+  },
+  "coverage": {
+    "first_season": "2011-12",
+    "last_season": "2025-26",
+    "main_matches": 1997,
+    "qualifier_matches": 182,
+    "all_matches": 2179,
+    "canonical_teams": 161
+  },
+  "score_policy": "home_goals/away_goals are 90-minute scores; extra-time and penalties are separate",
+  "recommended_training_file": "data/processed/ucl_matches.csv",
+  "matchiq_compatibility_file": "data/processed/ucl_matches_matchiq.csv",
+  "output_files": {
+    "ucl_matches.csv": {
+      "rows": 1997,
+      "sha256": "d9bb47aea1dbe34346d72c76072d43a0008c202cdfa800c48783b1b210155b64",
+      "bytes": 723624
+    },
+    "ucl_matches_all.csv": {
+      "rows": 2179,
+      "sha256": "9534a31c0c94f3157f6bc40a0b269507193321fd02632aa940cb454d9fb29aea",
+      "bytes": 787436
+    },
+    "ucl_matches_matchiq.csv": {
+      "rows": 1997,
+      "sha256": "32abc578f9236ca450154ad26908f247212351922c61ba3afd8e432996cdcc42",
+      "bytes": 170583
+    },
+    "ucl_teams.csv": {
+      "rows": 161,
+      "sha256": "ede25628e7e42bc45395b8af4d2115bf5c6112e0c29e9e58d926aecfe819d140",
+      "bytes": 15723
+    },
+    "ucl_team_aliases.csv": {
+      "rows": 194,
+      "sha256": "6106d25dca000e4cd23d320e5d3f05b050bbac9ea0b92d055a40762ff3da91ea",
+      "bytes": 9818
+    },
+    "ucl_season_summary.csv": {
+      "rows": 17,
+      "sha256": "76b41cb96bc78c3c48a2eef580df5bc9abf7f932b924e2121103ec56e31db50e",
+      "bytes": 758
+    }
+  },
+  "source_validation": [
+    {
+      "season": "2011-12",
+      "file": "2011-12/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2012-13",
+      "file": "2012-13/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2013-14",
+      "file": "2013-14/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2014-15",
+      "file": "2014-15/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2015-16",
+      "file": "2015-16/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2016-17",
+      "file": "2016-17/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2017-18",
+      "file": "2017-18/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2018-19",
+      "file": "2018-19/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2019-20",
+      "file": "2019-20/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 119,
+      "parsed_matches": 119
+    },
+    {
+      "season": "2020-21",
+      "file": "2020-21/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2021-22",
+      "file": "2021-22/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2022-23",
+      "file": "2022-23/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2023-24",
+      "file": "2023-24/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 125,
+      "parsed_matches": 125
+    },
+    {
+      "season": "2024-25",
+      "file": "2024-25/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 189,
+      "parsed_matches": 189
+    },
+    {
+      "season": "2025-26",
+      "file": "2025-26/cl.txt",
+      "is_qualifier": 0,
+      "declared_matches": 189,
+      "parsed_matches": 189
+    },
+    {
+      "season": "2024-25",
+      "file": "2024-25/clq.txt",
+      "is_qualifier": 1,
+      "declared_matches": 90,
+      "parsed_matches": 90
+    },
+    {
+      "season": "2025-26",
+      "file": "2025-26/clq.txt",
+      "is_qualifier": 1,
+      "declared_matches": 92,
+      "parsed_matches": 92
+    }
+  ],
+  "elo": {
+    "base": 1500.0,
+    "k_factor": 20.0,
+    "home_advantage": 65.0,
+    "season_carryover": 0.85,
+    "time_aware": true
+  }
+}

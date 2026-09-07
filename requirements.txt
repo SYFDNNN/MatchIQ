@@ -1,0 +1,21 @@
+# Runtime notebook (Python 3.12, Windows 64-bit)
+numpy>=1.26.4,<3
+pandas>=2.2.2,<3
+scipy>=1.13.1,<2
+matplotlib>=3.8.4,<4
+seaborn>=0.13.2,<1
+plotly>=5.22,<8
+scikit-learn>=1.8,<2
+joblib>=1.5,<2
+tqdm>=4.66,<5
+openpyxl>=3.1.2,<4
+xgboost>=3.4,<4
+lightgbm>=4.5,<5
+Jinja2>=3.1.6,<4
+
+# Web UI lokal
+Flask>=3.1.2,<4
+
+# Kernel Jupyter untuk VS Code
+ipykernel>=6.29.5,<8
+nbformat>=5.10.4,<6

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <defs>
+    <linearGradient id="matchiq-ring" x1="7" y1="8" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F7F7"/>
+      <stop offset="0.55" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#52E5C4"/>
+    </linearGradient>
+  </defs>
+  <circle cx="19.5" cy="19" r="12.25" stroke="url(#matchiq-ring)" stroke-width="2.5"/>
+  <path d="M11.5 22.5V15.75L15.8 20.8 19.7 15.75 24.2 20.8V15.75" stroke="#F5F5F5" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M27.5 27.2 33.1 32.8" stroke="#52E5C4" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="30.65" cy="30.4" r="1.55" fill="#52E5C4"/>
+</svg>

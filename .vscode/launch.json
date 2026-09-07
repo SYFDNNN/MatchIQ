@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "MatchIQ: Flask UI",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}\\app.py",
+      "args": [
+        "--open-browser"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

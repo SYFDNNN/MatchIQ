@@ -1,0 +1,10 @@
+{
+  "ucl": {
+    "display_name": "UEFA Champions League",
+    "artifact_path": "models/ucl_runtime.joblib",
+    "training_data": "data/processed/ucl_matches.csv",
+    "teams_data": "data/processed/ucl_teams.csv",
+    "score_basis": "90_minutes",
+    "default_home_advantage": true
+  }
+}

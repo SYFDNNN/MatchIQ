@@ -1,0 +1,21 @@
+# Environment lokal (installer proyek memakai environment di LOCALAPPDATA)
+.venv/
+venv/
+
+# Cache Python/Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+
+# File lokal Flask
+*.log
+
+# Model runtime dibuat native oleh setup pada komputer pengguna
+models/*.joblib
+models/.*.tmp
+
+# Hasil yang dibuat saat Run All
+data/extracted/
+outputs/*
+!outputs/.gitkeep
