@@ -116,7 +116,8 @@ def main() -> int:
             "The production runtime is refit on all completed matches only after evaluation.",
         ],
     }
-    output = PROJECT_ROOT / "data" / "ucl" / "reports" / "ucl_model_evaluation.json"
+    output = PROJECT_ROOT / "reports" / "ucl_model_evaluation.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
     print(f"[OK] Evaluation report: {output.relative_to(PROJECT_ROOT)}")

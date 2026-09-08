@@ -900,7 +900,10 @@ def _build_team_catalog(
         aliases.update({display_name: team_id for team_id, display_name in FEATURED_TEAMS})
         return catalog, aliases
 
-    data_root = project_root / "data" / "ucl" / "data" / "processed"
+    # UCL datasets are kept alongside the other project datasets.  Keep this
+    # registry path aligned with CompetitionSpec.training_data and the files
+    # committed under data/processed/.
+    data_root = project_root / "data" / "processed"
     teams_path = data_root / "ucl_teams.csv"
     aliases_path = data_root / "ucl_team_aliases.csv"
     matches_path = data_root / "ucl_matches.csv"
