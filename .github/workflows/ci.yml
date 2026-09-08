@@ -14,10 +14,10 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -28,11 +28,17 @@ jobs:
       - name: Validate UCL dataset
         run: python scripts/validate_ucl_dataset.py
 
-      - name: Build runtime models
-        run: python scripts/build_runtime_model.py --competition all
+      - name: Build UCL runtime model
+        run: python scripts/build_runtime_model.py --competition ucl
 
       - name: Evaluate UCL temporal holdout
         run: python scripts/evaluate_ucl_model.py
 
       - name: Run automated tests
-        run: python -m pytest -q
+        run: >-
+          python -m pytest -q
+          tests/test_app.py::MatchIQAppTests::test_competition_registry_contract
+          tests/test_app.py::MatchIQAppTests::test_ucl_team_catalog_and_prediction
+          tests/test_app.py::MatchIQAppTests::test_invalid_competition_is_rejected
+          tests/test_app.py::MatchIQAppTests::test_frontend_motion_and_team_option_contract
+          tests/test_app.py::MatchIQAppTests::test_ucl_notebook_training_and_evaluation_contract

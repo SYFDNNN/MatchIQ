@@ -18,7 +18,11 @@ def read_csv(name: str) -> list[dict[str, str]]:
 
 
 def sha256(path: Path) -> str:
-    digest = hashlib.sha256(path.read_bytes())
+    # Git may check text files out with LF or CRLF depending on the runner.
+    # The manifest was generated from CRLF CSV files, so hash a canonical
+    # representation to keep validation identical on Windows and Linux.
+    content = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    digest = hashlib.sha256(content.replace(b"\n", b"\r\n"))
     return digest.hexdigest()
 
 
