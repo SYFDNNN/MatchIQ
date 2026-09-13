@@ -7,7 +7,7 @@ const copy = {
     nav_model: "Model",
     nav_about: "Tentang",
     local: "Lokal",
-    hero_eyebrow: "HYBRID AI • DIXON-COLES + XGBOOST",
+    hero_eyebrow: "ANALISIS SEPAK BOLA • MODEL PER KOMPETISI",
     hero_line_one: "Lihat pertandingan.",
     hero_line_two: "Sebelum terjadi.",
     hero_lead: "Ubah data historis menjadi probabilitas pertandingan yang jernih, cepat, dan mudah dibaca.",
@@ -36,7 +36,8 @@ const copy = {
     strongest_outcome: "Hasil 1X2 terkuat",
     win_result: "menang",
     score_outcome_note: "Skor eksak adalah satu kombinasi gol. Peluang menang mencakup semua skor kemenangan; peluang seri mencakup 0–0, 1–1, 2–2, dan seterusnya. Karena itu, 1–1 bisa menjadi skor eksak teratas meski satu tim lebih berpeluang menang.",
-    data_depth: "Kedalaman data",
+    data_depth: "Cakupan tim",
+    coverage_note: "Menunjukkan apakah kedua tim dikenal model; bukan ukuran kelengkapan seluruh data.",
     model_version: "Model",
     outcome_title: "Probabilitas hasil",
     draw: "Seri",
@@ -52,7 +53,27 @@ const copy = {
     both_score: "Kedua tim mencetak gol",
     btts_note: "Probabilitas setidaknya satu gol dari masing-masing tim.",
     extended_title: "Analisis lanjutan",
-    to_qualify: "Peluang lolos",
+    to_qualify: "Simulasi penentuan pemenang",
+    qualify_note: "Peluang menang + separuh peluang seri. Asumsi 50:50 jika seri; tidak memperhitungkan agregat, perpanjangan waktu, atau penalti.",
+    resilience_note: "Indeks perbandingan Elo dan performa terkini pada skala 0–10.",
+    double_chance_note: "1X: kandang atau seri · X2: seri atau tandang · 12: salah satu tim menang.",
+    heatmap_note: "Angka dalam %. Pilih sel untuk melihat skor dan peluangnya; gunakan tombol panah untuk berpindah.",
+    over_under_note: "Total gol: ungu = di atas batas, biru = di bawah batas. Persentase di kanan adalah peluang di atas batas.",
+    over: "Di atas",
+    under: "Di bawah",
+    stale: "Pilihan berubah. Klik Analisis pertandingan untuk memperbarui hasil.",
+    loading_data: "Memuat data kompetisi…",
+    retry: "Coba lagi",
+    model_unavailable: "Model belum tersedia. Jalankan setup_windows.bat lalu coba lagi.",
+    data_until: "Data hingga",
+    model_pending: "Informasi model tersedia setelah data kompetisi dimuat.",
+    wc_pipeline: "Hybrid v3 menggabungkan probabilitas 1X2 dari Dixon–Coles dan XGBoost terkalibrasi. Skor eksak dan pola gol berasal dari Dixon–Coles.",
+    ucl_dc: "Membentuk distribusi skor dan pola gol. Total peluang menang/seri pada distribusi ini diselaraskan dengan probabilitas 1X2 model terpilih.",
+    ucl_ml: "Model 1X2 terpilih melalui validasi musim berurutan, menggunakan fitur yang tersedia sebelum pertandingan.",
+    ucl_pipeline: "Membandingkan kandidat XGBoost, regresi logistik, model dua tahap, Dixon–Coles, campuran, dan stacking melalui validasi waktu.",
+    calibration: "Kalibrasi terpilih",
+    calibration_none: "Tanpa koreksi tambahan",
+    selection_note: "Komposisi ini berlaku untuk probabilitas 1X2. Dixon–Coles tetap membentuk skor eksak. Pilihan dapat berubah setelah pelatihan ulang.",
     handicap_cover: "Menutup handicap",
     odd_even: "Ganjil / genap",
     resilience: "Resiliensi",
@@ -62,11 +83,11 @@ const copy = {
     result_note: "Probabilitas adalah estimasi model berdasarkan data historis, bukan kepastian hasil atau saran taruhan.",
     model_kicker: "DI DALAM MODEL",
     model_title: "Dua perspektif. Satu probabilitas.",
-    model_intro: "Mesin statistik membaca distribusi skor. Model pembelajaran mesin membaca pola performa. MatchIQ menyatukan keduanya.",
+    model_intro: "Model mengikuti kompetisi yang dipilih di prediktor.",
     model_dc: "Mengestimasi gol dan seluruh kombinasi skor, dengan koreksi khusus untuk skor rendah.",
     model_xgb: "Membaca form, ELO, serangan, pertahanan, clean sheet, dan 30+ fitur time-aware.",
     model_hybrid: "Mengkalibrasi dan menggabungkan kedua keluaran agar analisis 1X2 dan pasar gol konsisten.",
-    blend_label: "Komposisi prediksi",
+    blend_label: "Bobot model untuk probabilitas 1X2",
     about_kicker: "TENTANG MATCHIQ",
     about_title: "Analisis yang terasa ringan, tanpa menyederhanakan modelnya.",
     about_body: "MatchIQ menyatukan prediksi Piala Dunia dan Liga Champions dalam satu aplikasi lokal, dengan dataset dan runtime yang tetap terpisah.",
@@ -88,16 +109,16 @@ const copy = {
     odd: "Ganjil",
     even: "Genap",
     cover: "menutup",
-    qualify: "lebih berpeluang lolos",
+    qualify: "unggul dalam simulasi",
     home_favored: "lebih berpeluang menang",
     away_favored: "lebih berpeluang menang",
     draw_favored: "Seri menjadi hasil terkuat",
     prediction_failed: "Prediksi tidak dapat dibuat. Periksa server Flask lalu coba lagi.",
     same_team: "Pilih dua tim yang berbeda.",
-    data_high: "Lengkap",
-    data_medium: "Sebagian",
-    data_low: "Terbatas",
-    push: "push",
+    data_high: "Kedua tim dikenal",
+    data_medium: "Satu tim dikenal",
+    data_low: "Tim belum dikenal",
+    push: "Imbang handicap",
   },
   en: {
     skip: "Skip to predictor",
@@ -105,7 +126,7 @@ const copy = {
     nav_model: "Model",
     nav_about: "About",
     local: "Local",
-    hero_eyebrow: "HYBRID AI • DIXON-COLES + XGBOOST",
+    hero_eyebrow: "FOOTBALL ANALYSIS • COMPETITION-SPECIFIC MODELS",
     hero_line_one: "See the match.",
     hero_line_two: "Before it unfolds.",
     hero_lead: "Turn historical data into match probabilities that are clear, fast, and easy to read.",
@@ -134,7 +155,8 @@ const copy = {
     strongest_outcome: "Most likely 1X2 outcome",
     win_result: "win",
     score_outcome_note: "An exact score is one goal combination. A win includes every winning score; a draw includes 0–0, 1–1, 2–2, and so on. So 1–1 can be the top exact score even when one team is more likely to win.",
-    data_depth: "Data depth",
+    data_depth: "Team coverage",
+    coverage_note: "Shows whether both teams are known to the model; it does not measure completeness of all data.",
     model_version: "Model",
     outcome_title: "Outcome probability",
     draw: "Draw",
@@ -150,7 +172,27 @@ const copy = {
     both_score: "Both teams to score",
     btts_note: "Probability that each team scores at least one goal.",
     extended_title: "Deeper analysis",
-    to_qualify: "To qualify",
+    to_qualify: "Winner simulation",
+    qualify_note: "Win probability + half the draw probability. Assumes 50:50 after a draw; excludes aggregate scores, extra time, and penalties.",
+    resilience_note: "A comparative index of Elo and recent form on a 0–10 scale.",
+    double_chance_note: "1X: home or draw · X2: draw or away · 12: either team wins.",
+    heatmap_note: "Values in %. Select a cell for its score and probability; use arrow keys to move.",
+    over_under_note: "Total goals: purple = over the line, blue = under. The percentage on the right is the chance of going over.",
+    over: "Over",
+    under: "Under",
+    stale: "Selection changed. Click Analyze match to update the results.",
+    loading_data: "Loading competition data…",
+    retry: "Try again",
+    model_unavailable: "The model is unavailable. Run setup_windows.bat and try again.",
+    data_until: "Data through",
+    model_pending: "Model information will appear when competition data is loaded.",
+    wc_pipeline: "Hybrid v3 combines 1X2 probabilities from Dixon–Coles and calibrated XGBoost. Exact scores and goal patterns come from Dixon–Coles.",
+    ucl_dc: "Builds score distributions and goal patterns. The win/draw totals are aligned with the selected model’s 1X2 probabilities.",
+    ucl_ml: "The 1X2 model selected using sequential season validation and features available before each match.",
+    ucl_pipeline: "Compares XGBoost, logistic regression, two-stage models, Dixon–Coles, blends, and stacking using temporal validation.",
+    calibration: "Selected calibration",
+    calibration_none: "No additional correction",
+    selection_note: "This composition applies to 1X2 probabilities. Dixon–Coles still shapes exact scores. Selection may change after retraining.",
     handicap_cover: "Handicap cover",
     odd_even: "Odd / even",
     resilience: "Resilience",
@@ -160,11 +202,11 @@ const copy = {
     result_note: "Probabilities are model estimates based on historical data, not guaranteed outcomes or betting advice.",
     model_kicker: "INSIDE THE MODEL",
     model_title: "Two perspectives. One probability.",
-    model_intro: "The statistical engine reads score distributions. Machine learning reads performance patterns. MatchIQ brings them together.",
+    model_intro: "The model follows the competition selected in the predictor.",
     model_dc: "Estimates goals and every score combination, with a dedicated correction for low-scoring matches.",
     model_xgb: "Reads form, ELO, attack, defense, clean sheets, and 30+ time-aware features.",
     model_hybrid: "Calibrates and combines both outputs so 1X2 and goal analysis remain consistent.",
-    blend_label: "Prediction blend",
+    blend_label: "Model weights for 1X2 probabilities",
     about_kicker: "ABOUT MATCHIQ",
     about_title: "Analysis that feels light without simplifying the model.",
     about_body: "MatchIQ brings World Cup and Champions League predictions into one local app while keeping their datasets and runtimes separate.",
@@ -186,16 +228,16 @@ const copy = {
     odd: "Odd",
     even: "Even",
     cover: "to cover",
-    qualify: "more likely to qualify",
+    qualify: "leads this simulation",
     home_favored: "is more likely to win",
     away_favored: "is more likely to win",
     draw_favored: "Draw is the strongest outcome",
     prediction_failed: "The prediction could not be created. Check the Flask server and try again.",
     same_team: "Choose two different teams.",
-    data_high: "Complete",
-    data_medium: "Partial",
-    data_low: "Limited",
-    push: "push",
+    data_high: "Both teams known",
+    data_medium: "One team known",
+    data_low: "Teams unknown",
+    push: "Handicap tie",
   },
 };
 
@@ -208,6 +250,11 @@ const state = {
   teams: [],
   teamMap: new Map(),
   prediction: null,
+  model: null,
+  loading: false,
+  ready: false,
+  feedback: null,
+  errorKey: null,
 };
 
 const elements = {
@@ -260,12 +307,17 @@ function applyLanguage(language) {
   });
   document.querySelectorAll("[data-lang-option]").forEach((node) => {
     node.classList.toggle("active", node.dataset.langOption === language);
+    node.setAttribute("aria-pressed", String(node.dataset.langOption === language));
   });
   elements.swap.setAttribute("aria-label", language === "id" ? "Tukar tim" : "Swap teams");
   elements.swap.title = language === "id" ? "Tukar tim" : "Swap teams";
   if (state.competitions.length) populateCompetitions(true);
   if (state.teams.length) populateTeams(true);
   if (state.prediction) renderPrediction(state.prediction);
+  renderModel();
+  renderFeedback();
+  if (state.errorKey) showError(state.errorKey);
+  setLoading(state.loading);
 }
 
 function competitionName(competition) {
@@ -327,9 +379,7 @@ function updateFormFlags() {
 }
 
 async function loadCompetitions() {
-  const response = await fetch("/api/competitions", { headers: { Accept: "application/json" } });
-  const payload = await response.json();
-  if (!response.ok || !payload.ok) throw new Error(payload.message || t("prediction_failed"));
+  const payload = await fetchPayload("/api/competitions");
   state.competitions = payload.competitions;
   state.competitionMap = new Map(state.competitions.map((competition) => [competition.id, competition]));
   if (!state.competitionMap.has(state.competitionId)) state.competitionId = payload.default;
@@ -338,41 +388,83 @@ async function loadCompetitions() {
 
 async function loadTeams({ preserve = false } = {}) {
   const query = new URLSearchParams({ competition: state.competitionId });
-  const response = await fetch(`/api/teams?${query}`, { headers: { Accept: "application/json" } });
-  const payload = await response.json();
-  if (!response.ok || !payload.ok) throw new Error(payload.message || t("prediction_failed"));
+  const payload = await fetchPayload(`/api/teams?${query}`);
+  state.model = payload.model;
   state.currentCompetition = payload.competition;
   state.competitionMap.set(payload.competition.id, payload.competition);
   state.teams = payload.teams;
   state.teamMap = new Map(state.teams.map((team) => [team.id, team]));
   populateTeams(preserve);
+  renderModel();
 }
 
 function setLoading(loading) {
+  state.loading = loading;
   elements.button.disabled = loading;
+  for (const control of [elements.competition, elements.homeSelect, elements.awaySelect, elements.handicap, elements.swap]) {
+    control.disabled = loading || (!state.ready && control !== elements.competition);
+  }
+  elements.form.setAttribute("aria-busy", String(loading));
   elements.button.classList.toggle("loading", loading);
-  elements.buttonLabel.textContent = loading ? t("analyzing") : t("analyze");
+  elements.buttonLabel.textContent = loading ? t(state.ready ? "analyzing" : "loading_data") : t(state.ready ? "analyze" : "retry");
 }
 
-function showError(message) {
-  elements.status.textContent = message;
+function showError(key) {
+  state.errorKey = copy.id[key] ? key : "prediction_failed";
+  elements.status.textContent = t(state.errorKey);
   elements.status.hidden = false;
 }
 
 function clearError() {
+  state.errorKey = null;
   elements.status.hidden = true;
   elements.status.textContent = "";
 }
 
+function renderFeedback() {
+  const node = document.querySelector("#form-feedback");
+  node.hidden = !state.feedback;
+  node.textContent = state.feedback ? t(state.feedback) : "";
+}
+
+function invalidatePrediction() {
+  state.prediction = null;
+  elements.result.hidden = true;
+  state.feedback = "stale";
+  clearError();
+  renderFeedback();
+  updateFormFlags();
+}
+
+async function fetchPayload(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) throw new Error(payload.error === "model_unavailable" ? "model_unavailable" : "prediction_failed");
+    return payload;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 async function requestPrediction({ scroll = false } = {}) {
+  if (state.loading) return;
+  if (!state.ready) return initialize();
   clearError();
   if (elements.homeSelect.value === elements.awaySelect.value) {
-    showError(t("same_team"));
+    showError("same_team");
+    elements.awaySelect.focus();
     return;
   }
+  state.prediction = null;
+  elements.result.hidden = true;
+  state.feedback = "analyzing";
+  renderFeedback();
   setLoading(true);
   try {
-    const response = await fetch("/api/predict", {
+    const payload = await fetchPayload("/api/predict", {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
@@ -382,17 +474,17 @@ async function requestPrediction({ scroll = false } = {}) {
         handicap: Number(elements.handicap.value),
       }),
     });
-    const payload = await response.json();
-    if (!response.ok || !payload.ok) throw new Error(payload.message || t("prediction_failed"));
     state.prediction = payload.prediction;
     renderPrediction(state.prediction);
     elements.result.hidden = false;
     if (scroll) {
-      elements.result.scrollIntoView({ behavior: "smooth", block: "start" });
+      elements.result.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
     }
   } catch (error) {
-    showError(error.message || t("prediction_failed"));
+    showError(error.message);
   } finally {
+    state.feedback = null;
+    renderFeedback();
     setLoading(false);
   }
 }
@@ -405,6 +497,51 @@ function setText(selector, value) {
 function setBar(selector, probability) {
   const node = document.querySelector(selector);
   if (node) node.style.width = `${Math.max(0, Math.min(100, Number(probability) * 100))}%`;
+}
+
+function renderModel() {
+  const model = state.model;
+  document.querySelector("#model-flow").hidden = !model;
+  document.querySelector("#model-blend").hidden = !model;
+  if (!model) {
+    setText("#model-context", t("model_pending"));
+    setText("#model-selection-note", "");
+    return;
+  }
+  const ucl = model.pipeline_version === "ucl_v4_audited";
+  const names = {
+    logistic_compact: "Logistic Compact", xgb_compact: "XGBoost Compact",
+    xgb_full: "XGBoost Full", xgb_depth3: "XGBoost Depth 3",
+    two_stage_full: "Two-stage XGBoost (Full)", two_stage_compact: "Two-stage XGBoost (Compact)",
+    dc: "Dixon–Coles",
+  };
+  const blend = model.blend;
+  const stack = ucl && blend?.kind === "stack";
+  const component = ucl ? names[blend?.component] || blend?.component || "Ensemble" : "XGBoost";
+  setText("#model-context", `${competitionName(state.currentCompetition)} · ${t("data_until")} ${model.data_until}`);
+  setText("#model-dc-description", t(ucl ? "ucl_dc" : "model_dc"));
+  setText("#model-ml-name", stack ? "Stacking ensemble" : component);
+  setText("#model-ml-description", t(ucl ? "ucl_ml" : "model_xgb"));
+  setText("#model-pipeline-name", model.model_name);
+  setText("#model-pipeline-description", t(ucl ? "ucl_pipeline" : "wc_pipeline"));
+  const weight = ucl ? blend?.weight : 0.6;
+  const hasWeights = !stack && Number.isFinite(weight);
+  document.querySelector("#model-blend-track").hidden = !hasWeights;
+  if (hasWeights) {
+    const dcWeight = ucl && blend.component === "dc" ? 1 : 1 - weight;
+    const mlWeight = 1 - dcWeight;
+    const parts = [];
+    if (dcWeight > 0) parts.push(`${percent(dcWeight)} Dixon–Coles`);
+    if (mlWeight > 0) parts.push(`${percent(mlWeight)} ${component}`);
+    setText("#model-blend-text", parts.join(" + "));
+    setBar("#model-blend-track i", dcWeight);
+    setBar("#model-blend-track b", mlWeight);
+  } else {
+    setText("#model-blend-text", stack ? "Stacking ensemble" : model.model_name);
+  }
+  setText("#model-selection-note", ucl
+    ? `${t("calibration")}: ${blend?.calibration === "none" ? t("calibration_none") : blend?.calibration || "—"}. ${t("selection_note")}`
+    : "");
 }
 
 function renderHeader(prediction) {
@@ -470,6 +607,8 @@ function renderHeatmap(prediction) {
   const matrix = prediction.score_matrix;
   const maximum = Math.max(...matrix.flat());
   container.replaceChildren();
+  setText("#heatmap-detail", "");
+  container.setAttribute("aria-label", t("score_map"));
 
   const corner = document.createElement("span");
   corner.className = "heatmap-axis";
@@ -488,13 +627,29 @@ function renderHeatmap(prediction) {
     container.append(label);
     for (let away = 0; away < matrix.length; away += 1) {
       const probability = matrix[home][away];
-      const cell = document.createElement("span");
+      const cell = document.createElement("button");
+      cell.type = "button";
+      cell.tabIndex = home === matrix.length - 1 && away === 0 ? 0 : -1;
       cell.className = "heatmap-cell";
       if (probability === maximum) cell.classList.add("best");
       cell.style.backgroundColor = heatColor(probability, maximum);
-      cell.textContent = probability >= 0.008 ? `${(probability * 100).toFixed(1)}` : "";
+      cell.textContent = probability >= 0.008 ? number(probability * 100, 1) : "";
       cell.title = `${home}-${away}: ${percent(probability)}`;
       cell.setAttribute("aria-label", `${home}-${away}: ${percent(probability)}`);
+      cell.addEventListener("focus", () => setText("#heatmap-detail", cell.title));
+      cell.addEventListener("click", () => {
+        container.querySelectorAll("button").forEach((node) => { node.tabIndex = node === cell ? 0 : -1; });
+        setText("#heatmap-detail", cell.title);
+      });
+      cell.addEventListener("keydown", (event) => {
+        const offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -matrix.length, ArrowDown: matrix.length };
+        if (!(event.key in offsets)) return;
+        event.preventDefault();
+        const cells = [...container.querySelectorAll("button")];
+        const next = cells[Math.max(0, Math.min(cells.length - 1, cells.indexOf(cell) + offsets[event.key]))];
+        cells.forEach((node) => { node.tabIndex = node === next ? 0 : -1; });
+        next.focus();
+      });
       container.append(cell);
     }
   }
@@ -509,10 +664,12 @@ function renderTopScores(prediction) {
     row.setAttribute("role", "row");
     [String(index + 1), item.score, percent(item.probability)].forEach((value) => {
       const cell = document.createElement("span");
+      cell.setAttribute("role", "cell");
       cell.textContent = value;
       row.append(cell);
     });
     const tier = document.createElement("span");
+    tier.setAttribute("role", "cell");
     tier.className = `tier ${item.confidence}`;
     tier.textContent = translatedTier(item.confidence);
     row.append(tier);
@@ -533,7 +690,7 @@ function renderGoals(prediction) {
     const row = document.createElement("div");
     row.className = "ou-row";
     const label = document.createElement("span");
-    label.textContent = `O ${item.line}`;
+    label.textContent = `${t("over")} ${number(item.line, 1)}`;
     const track = document.createElement("div");
     track.className = "ou-track";
     const over = document.createElement("i");
@@ -543,6 +700,7 @@ function renderGoals(prediction) {
     track.append(over, under);
     const value = document.createElement("span");
     value.textContent = percent(item.over);
+    row.setAttribute("aria-label", `${label.textContent}: ${percent(item.over)}; ${t("under")}: ${percent(item.under)}`);
     row.append(label, track, value);
     chart.append(row);
   });
@@ -606,36 +764,49 @@ elements.swap.addEventListener("click", () => {
   const previousHome = elements.homeSelect.value;
   elements.homeSelect.value = elements.awaySelect.value;
   elements.awaySelect.value = previousHome;
-  updateFormFlags();
+  invalidatePrediction();
 });
 
-elements.homeSelect.addEventListener("change", updateFormFlags);
-elements.awaySelect.addEventListener("change", updateFormFlags);
-elements.competition.addEventListener("change", async () => {
+elements.homeSelect.addEventListener("change", invalidatePrediction);
+elements.awaySelect.addEventListener("change", invalidatePrediction);
+elements.handicap.addEventListener("change", invalidatePrediction);
+elements.competition.addEventListener("change", () => {
   state.competitionId = elements.competition.value;
   state.currentCompetition = state.competitionMap.get(state.competitionId) || null;
   localStorage.setItem("matchiq-competition", state.competitionId);
-  state.prediction = null;
-  elements.result.hidden = true;
-  clearError();
-  try {
-    await loadTeams({ preserve: false });
-    await requestPrediction({ scroll: false });
-  } catch (error) {
-    showError(error.message || t("prediction_failed"));
-  }
+  initialize();
 });
-elements.language.addEventListener("click", () => applyLanguage(state.language === "id" ? "en" : "id"));
+elements.language.addEventListener("click", (event) => {
+  const option = event.target.closest("[data-lang-option]");
+  if (option) applyLanguage(option.dataset.langOption);
+});
 
 async function initialize() {
+  if (state.loading) return;
+  state.ready = false;
+  state.model = null;
+  state.teams = [];
+  state.teamMap.clear();
+  state.prediction = null;
+  elements.result.hidden = true;
+  elements.homeSelect.replaceChildren();
+  elements.awaySelect.replaceChildren();
+  state.feedback = "loading_data";
+  clearError();
+  setLoading(true);
   applyLanguage(state.language);
   try {
     await loadCompetitions();
     await loadTeams({ preserve: false });
-    await requestPrediction({ scroll: false });
+    state.ready = true;
   } catch (error) {
-    showError(error.message || t("prediction_failed"));
+    showError(error.message);
+  } finally {
+    state.feedback = null;
+    renderFeedback();
+    setLoading(false);
   }
+  if (state.ready) await requestPrediction({ scroll: false });
 }
 
 initialize();

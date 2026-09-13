@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="MatchIQ — prediksi Piala Dunia dan UEFA Champions League dengan Hybrid AI v3.">
+  <meta name="description" content="MatchIQ — probabilitas pertandingan Piala Dunia dan UEFA Champions League dengan model khusus tiap kompetisi.">
   <meta name="theme-color" content="#050505">
   <title>MatchIQ — Football Prediction Intelligence</title>
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css', v='20260902-7') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css', v='20260913-ui') }}">
 </head>
 <body>
   <a class="skip-link" href="#predictor" data-i18n="skip">Lewati ke prediktor</a>
@@ -28,10 +28,10 @@
 
       <div class="nav-actions">
         <span class="local-status"><i></i><span data-i18n="local">Lokal</span></span>
-        <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language">
-          <span class="language-option active" data-lang-option="id">ID</span>
-          <span class="language-option" data-lang-option="en">EN</span>
-        </button>
+        <div class="language-toggle" id="language-toggle" role="group" aria-label="Bahasa / Language">
+          <button class="language-option active" data-lang-option="id" type="button" aria-label="Bahasa Indonesia" aria-pressed="true">ID</button>
+          <button class="language-option" data-lang-option="en" type="button" aria-label="English" aria-pressed="false">EN</button>
+        </div>
       </div>
     </nav>
   </header>
@@ -40,7 +40,7 @@
     <section class="hero shell" id="home">
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="hero-copy">
-        <p class="eyebrow"><span class="pulse"></span><span data-i18n="hero_eyebrow">HYBRID AI • DIXON-COLES + XGBOOST</span></p>
+        <p class="eyebrow"><span class="pulse"></span><span data-i18n="hero_eyebrow">ANALISIS SEPAK BOLA • MODEL PER KOMPETISI</span></p>
         <h1>
           <span data-i18n="hero_line_one">Lihat pertandingan.</span>
           <span class="text-gradient" data-i18n="hero_line_two">Sebelum terjadi.</span>
@@ -140,6 +140,7 @@
         </form>
 
         <div class="status-message" id="status-message" role="alert" hidden></div>
+        <p class="form-feedback" id="form-feedback" role="status" hidden></p>
 
         <div class="result-content" id="result-content" hidden aria-live="polite">
           <div class="result-divider"></div>
@@ -187,8 +188,9 @@
               <small class="metric-note" data-i18n="clarity_note">Indeks 0–100%: makin tinggi, makin dominan satu hasil. Bukan peluang prediksi benar.</small>
             </div>
             <div>
-              <span data-i18n="data_depth">Kedalaman data</span>
+              <span data-i18n="data_depth">Cakupan tim</span>
               <strong id="data-quality">—</strong>
+              <small class="metric-note" data-i18n="coverage_note">Menunjukkan apakah kedua tim dikenal model; bukan ukuran kelengkapan seluruh data.</small>
             </div>
             <div>
               <span data-i18n="model_version">Model</span>
@@ -228,6 +230,8 @@
                 <div class="heatmap" id="score-heatmap" aria-label="Score probability heatmap"></div>
                 <span class="heatmap-x-label" data-i18n="away_goals">Gol tandang</span>
               </div>
+              <p class="chart-note" data-i18n="heatmap_note">Angka dalam %. Pilih sel untuk melihat skor dan peluangnya; gunakan tombol panah untuk berpindah.</p>
+              <p class="chart-note" id="heatmap-detail" role="status"></p>
             </div>
 
             <div class="top-scores">
@@ -237,12 +241,12 @@
               </div>
               <div class="score-table" role="table" aria-label="Most likely scores">
                 <div class="score-table-head" role="row">
-                  <span data-i18n="rank">#</span>
-                  <span data-i18n="score">Skor</span>
-                  <span data-i18n="probability">Probabilitas</span>
-                  <span data-i18n="tier">Level</span>
+                  <span role="columnheader" data-i18n="rank">#</span>
+                  <span role="columnheader" data-i18n="score">Skor</span>
+                  <span role="columnheader" data-i18n="probability">Probabilitas</span>
+                  <span role="columnheader" data-i18n="tier">Level</span>
                 </div>
-                <div id="top-score-rows"></div>
+                <div id="top-score-rows" role="rowgroup"></div>
               </div>
             </div>
           </section>
@@ -263,7 +267,10 @@
                   <p data-i18n="btts_note">Probabilitas setidaknya satu gol dari masing-masing tim.</p>
                 </div>
               </div>
-              <div class="ou-chart" id="over-under-chart"></div>
+              <div>
+                <p class="chart-note" data-i18n="over_under_note">Total gol: ungu = di atas batas, biru = di bawah batas. Persentase di kanan adalah peluang di atas batas.</p>
+                <div class="ou-chart" id="over-under-chart"></div>
+              </div>
             </div>
           </section>
 
@@ -275,9 +282,10 @@
 
             <div class="extended-rail">
               <div class="extended-item">
-                <span data-i18n="to_qualify">Peluang lolos</span>
+                <span data-i18n="to_qualify">Simulasi penentuan pemenang</span>
                 <strong id="qualify-call">—</strong>
                 <small id="qualify-detail">—</small>
+                <p class="chart-note" data-i18n="qualify_note">Peluang menang + separuh peluang seri. Asumsi 50:50 jika seri; tidak memperhitungkan agregat, perpanjangan waktu, atau penalti.</p>
               </div>
               <div class="extended-item">
                 <span data-i18n="handicap_cover">Menutup handicap</span>
@@ -293,6 +301,7 @@
                 <span data-i18n="resilience">Resiliensi</span>
                 <strong id="resilience-call">—</strong>
                 <small id="resilience-detail">—</small>
+                <p class="chart-note" data-i18n="resilience_note">Indeks perbandingan Elo dan performa terkini pada skala 0–10.</p>
               </div>
             </div>
 
@@ -300,6 +309,7 @@
               <div>
                 <span data-i18n="double_chance">Double chance</span>
                 <p id="double-chance-values">—</p>
+                <p class="chart-note" data-i18n="double_chance_note">1X: kandang atau seri · X2: seri atau tandang · 12: salah satu tim menang.</p>
               </div>
               <div>
                 <span data-i18n="win_to_nil">Menang tanpa kebobolan</span>
@@ -326,37 +336,39 @@
           <p class="section-kicker" data-i18n="model_kicker">DI DALAM MODEL</p>
           <h2 data-i18n="model_title">Dua perspektif. Satu probabilitas.</h2>
         </div>
-        <p data-i18n="model_intro">Mesin statistik membaca distribusi skor. Model pembelajaran mesin membaca pola performa. MatchIQ menyatukan keduanya.</p>
+        <p id="model-intro" data-i18n="model_intro">Model mengikuti kompetisi yang dipilih di prediktor.</p>
       </div>
+      <p class="model-context" id="model-context" role="status"></p>
 
-      <div class="model-flow">
+      <div class="model-flow" id="model-flow" hidden>
         <article>
           <span>01</span>
           <div class="model-icon model-icon-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
           <h3>Dixon–Coles</h3>
-          <p data-i18n="model_dc">Mengestimasi gol dan seluruh kombinasi skor, dengan koreksi khusus untuk skor rendah.</p>
+          <p id="model-dc-description"></p>
         </article>
         <article>
           <span>02</span>
           <div class="model-icon model-icon-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-          <h3>XGBoost</h3>
-          <p data-i18n="model_xgb">Membaca form, ELO, serangan, pertahanan, clean sheet, dan 30+ fitur time-aware.</p>
+          <h3 id="model-ml-name"></h3>
+          <p id="model-ml-description"></p>
         </article>
         <article>
           <span>03</span>
           <div class="model-icon model-icon-orbit" aria-hidden="true"><i></i><b></b></div>
-          <h3>Hybrid v3</h3>
-          <p data-i18n="model_hybrid">Mengkalibrasi dan menggabungkan kedua keluaran agar analisis 1X2 dan pasar gol konsisten.</p>
+          <h3 id="model-pipeline-name"></h3>
+          <p id="model-pipeline-description"></p>
         </article>
       </div>
 
-      <div class="blend-line" aria-label="Model blend">
+      <div class="blend-line" id="model-blend" hidden>
         <div class="blend-copy">
-          <span data-i18n="blend_label">Komposisi prediksi</span>
-          <strong>40% Dixon–Coles <i>+</i> 60% XGBoost</strong>
+          <span data-i18n="blend_label">Bobot model untuk probabilitas 1X2</span>
+          <strong id="model-blend-text"></strong>
         </div>
-        <div class="blend-track"><i></i><b></b></div>
+        <div class="blend-track" id="model-blend-track" aria-hidden="true"><i></i><b></b></div>
       </div>
+      <p class="chart-note" id="model-selection-note"></p>
     </section>
 
     <section class="about-section shell" id="about">
@@ -384,11 +396,11 @@
       <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" width="26" height="26">
       <span>MatchIQ</span>
     </div>
-    <p>Hybrid AI v3 · Flask · <span data-i18n="footer_local">Local-first</span></p>
+    <p>MatchIQ · WC + UCL · <span data-i18n="footer_local">Local-first</span></p>
     <p>© 2026 MatchIQ</p>
   </footer>
 
   <noscript>MatchIQ membutuhkan JavaScript untuk menampilkan prediksi interaktif.</noscript>
-  <script src="{{ url_for('static', filename='js/app.js', v='20260902-5') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/app.js', v='20260913-ui') }}" defer></script>
 </body>
 </html>
