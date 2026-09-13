@@ -14,7 +14,6 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
 NOTEBOOK = PROJECT_ROOT / "Piala_Dunia_26_Hybrid_AI_v4_VSCode.ipynb"
-UCL_NOTEBOOK = PROJECT_ROOT / "notebooks" / "MatchIQ_UCL_Hybrid_AI_Training.ipynb"
 UCL_V4_NOTEBOOK = PROJECT_ROOT / "notebooks" / "MatchIQ_UCL_v4_Audited.ipynb"
 
 PACKAGE_IMPORTS = {
@@ -69,7 +68,6 @@ required_files = [
     DATA_DIR / "master_matches.csv",
     DATA_DIR / "matches.csv",
     NOTEBOOK,
-    UCL_NOTEBOOK,
     UCL_V4_NOTEBOOK,
     PROJECT_ROOT / "app.py",
     PROJECT_ROOT / "matchiq" / "engine.py",
@@ -128,36 +126,6 @@ if kernel.get("language") != "python" or kernel.get("name") not in {
 }:
     fail("Metadata kernel notebook bukan kernel Python yang didukung.")
 print(f"[OK] Notebook lokal valid ({len(notebook['cells'])} cell)")
-
-ucl_notebook = json.loads(UCL_NOTEBOOK.read_text(encoding="utf-8"))
-ucl_source = "\n".join(
-    "".join(cell.get("source", [])) for cell in ucl_notebook["cells"]
-)
-if "/content" in ucl_source or "google.colab" in ucl_source:
-    fail("Notebook UCL masih mengandung path atau import khusus Google Colab.")
-ucl_kernel = ucl_notebook.get("metadata", {}).get("kernelspec", {})
-ucl_metadata = ucl_notebook.get("metadata", {}).get("matchiq", {})
-if ucl_kernel.get("language") != "python" or ucl_kernel.get("name") not in {
-    "python3",
-    "piala-dunia-26-hybrid-ai-v4",
-}:
-    fail("Metadata kernel notebook UCL bukan kernel Python yang didukung.")
-if ucl_metadata.get("competition") != "ucl" or ucl_metadata.get("temporal_holdout") != "2025-26":
-    fail("Metadata eksperimen notebook UCL tidak lengkap.")
-ucl_code_cells = [
-    cell for cell in ucl_notebook["cells"] if cell.get("cell_type") == "code"
-]
-for index, cell in enumerate(ucl_code_cells, start=1):
-    ast.parse("".join(cell.get("source", [])), filename=f"UCL notebook cell {index}")
-    if any(output.get("output_type") == "error" for output in cell.get("outputs", [])):
-        fail(f"Notebook UCL menyimpan error pada code cell {index}.")
-if len(ucl_notebook["cells"]) < 25 or len(ucl_code_cells) < 12:
-    fail("Notebook UCL terlalu sedikit untuk audit training dan evaluasi penuh.")
-executed_ucl_cells = sum(cell.get("execution_count") is not None for cell in ucl_code_cells)
-print(
-    f"[OK] Notebook UCL valid ({len(ucl_notebook['cells'])} cell, "
-    f"{executed_ucl_cells}/{len(ucl_code_cells)} code cell memiliki output eksekusi)"
-)
 
 ucl_v4_notebook = json.loads(UCL_V4_NOTEBOOK.read_text(encoding="utf-8"))
 ucl_v4_code_cells = [

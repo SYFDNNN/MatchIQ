@@ -161,30 +161,6 @@ class MatchIQAppTests(unittest.TestCase):
         self.assertIn('competition: state.competitionId', js)
         self.assertIn('/api/competitions', js)
 
-    def test_ucl_notebook_training_and_evaluation_contract(self):
-        path = PROJECT_ROOT / "notebooks" / "MatchIQ_UCL_Hybrid_AI_Training.ipynb"
-        notebook = json.loads(path.read_text(encoding="utf-8"))
-        metadata = notebook["metadata"]["matchiq"]
-        self.assertEqual(metadata["competition"], "ucl")
-        self.assertEqual(metadata["pipeline"], "hybrid_v3")
-        self.assertEqual(metadata["temporal_holdout"], "2025-26")
-
-        code_cells = [cell for cell in notebook["cells"] if cell["cell_type"] == "code"]
-        self.assertGreaterEqual(len(code_cells), 12)
-        for index, cell in enumerate(code_cells, start=1):
-            ast.parse("".join(cell["source"]), filename=f"ucl-notebook-cell-{index}")
-            self.assertFalse(
-                any(output.get("output_type") == "error" for output in cell.get("outputs", []))
-            )
-
-        source = "\n".join("".join(cell["source"]) for cell in code_cells)
-        self.assertIn('HOLDOUT_SEASON = "2025-26"', source)
-        self.assertIn("DixonColesModel", source)
-        self.assertIn("XGBClassifier", source)
-        self.assertIn("hybrid_probabilities", source)
-        self.assertIn("calibration_curve", source)
-        self.assertIn("MatchIQEngine", source)
-
     def test_ucl_v4_audited_notebook_contract(self):
         path = PROJECT_ROOT / "notebooks" / "MatchIQ_UCL_v4_Audited.ipynb"
         notebook = json.loads(path.read_text(encoding="utf-8"))

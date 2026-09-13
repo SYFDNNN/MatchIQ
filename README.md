@@ -149,12 +149,11 @@ Payload lama tanpa `competition` tetap kompatibel dan otomatis memakai `world_cu
 
 ## Notebook riset
 
-Proyek menyediakan tiga notebook terpisah:
+Proyek menyediakan dua notebook utama:
 
 | Notebook | Isi |
 |---|---|
 | `Piala_Dunia_26_Hybrid_AI_v4_VSCode.ipynb` | Eksperimen Piala Dunia asli, 199 cell |
-| `notebooks/MatchIQ_UCL_Hybrid_AI_Training.ipynb` | Notebook UCL Hybrid v3 sebelumnya |
 | `notebooks/MatchIQ_UCL_v4_Audited.ipynb` | Audit leakage, fitur pra-pertandingan, nested walk-forward, kalibrasi temporal, dan bundle UCL v4 |
 
 Notebook UCL sudah dijalankan penuh dan menyimpan tabel serta grafik hasil evaluasi. Untuk menjalankannya kembali:
@@ -167,12 +166,6 @@ Notebook UCL sudah dijalankan penuh dan menyimpan tabel serta grafik hasil evalu
 Notebook UCL v4 menjalankan outer walk-forward pada empat musim terakhir, memisahkan meta-training, tuning, dan kalibrasi, lalu memeriksa parity export/reload. Runtime Flask mengimplementasikan feature builder, model selection, kalibrator, state Elo, dan draw policy yang sama.
 
 Saat dijalankan dari workspace MatchIQ atau folder `notebooks`, notebook v4 otomatis membaca `data/processed/`; `data.zip` hanya diperlukan sebagai fallback di luar repositori atau saat upload ke Colab. Artifact notebook lokal ditulis ke `outputs/ucl_v4_notebook/`.
-
-Untuk menghasilkan ulang notebook UCL v3 lama dari source builder:
-
-```powershell
-& "$env:LOCALAPPDATA\piala-dunia-26-hybrid-ai-v4-venv\Scripts\python.exe" .\scripts\build_ucl_notebook.py
-```
 
 Untuk prediksi sehari-hari, gunakan Flask karena runtime sudah siap pakai.
 
@@ -193,8 +186,8 @@ Untuk prediksi sehari-hari, gunakan Flask karena runtime sudah siap pakai.
 | `static/js/app.js` | Kompetisi, interaksi, heatmap, dan ID/EN |
 | `scripts/build_runtime_model.py` | Training satu atau semua runtime |
 | `scripts/train_ucl_runtime.py` | Training khusus UCL |
-| `scripts/evaluate_ucl_model.py` | Reproduksi evaluasi baseline UCL Hybrid v3 lama |
-| `scripts/build_ucl_notebook.py` | Membangun ulang notebook UCL v3 lama |
+| `scripts/evaluate_ucl_model.py` | Reproduksi evaluasi baseline UCL Hybrid v3 (legacy) |
+| `scripts/build_ucl_notebook.py` | Builder notebook UCL v3 untuk pembanding (legacy) |
 | `scripts/ensure_runtime_model.py` | Pemeriksaan kompatibilitas dan rebuild otomatis |
 | `scripts/verify_setup.py` | Verifikasi package, data, model, Flask, dan API |
 | `notebooks/MatchIQ_UCL_v4_Audited.ipynb` | Notebook audit dan evaluasi utama UCL v4 |
