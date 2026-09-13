@@ -200,6 +200,8 @@ class MatchIQAppTests(unittest.TestCase):
         self.assertIn("future-label invariance", source)
         self.assertIn("apply_calibration", source)
         self.assertIn("matchiq-ucl-v4-audited", source)
+        self.assertIn('root / "data" / "processed"', source)
+        self.assertIn("LOCAL_DATA_DIR", source)
 
 
 if __name__ == "__main__":

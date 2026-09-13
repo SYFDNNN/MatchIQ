@@ -166,6 +166,8 @@ Notebook UCL sudah dijalankan penuh dan menyimpan tabel serta grafik hasil evalu
 
 Notebook UCL v4 menjalankan outer walk-forward pada empat musim terakhir, memisahkan meta-training, tuning, dan kalibrasi, lalu memeriksa parity export/reload. Runtime Flask mengimplementasikan feature builder, model selection, kalibrator, state Elo, dan draw policy yang sama.
 
+Saat dijalankan dari workspace MatchIQ atau folder `notebooks`, notebook v4 otomatis membaca `data/processed/`; `data.zip` hanya diperlukan sebagai fallback di luar repositori atau saat upload ke Colab. Artifact notebook lokal ditulis ke `outputs/ucl_v4_notebook/`.
+
 Untuk menghasilkan ulang notebook UCL v3 lama dari source builder:
 
 ```powershell
