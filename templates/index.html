@@ -154,12 +154,13 @@
 
             <div class="score-call">
               <span class="model-chip" id="result-model-chip">MATCHIQ · WC</span>
+              <span class="exact-score-label" data-i18n="exact_score_label">Skor eksak paling mungkin</span>
               <div class="score-display" id="result-score" aria-label="Skor 2 banding 1">
                 <strong class="score-number" id="result-score-home">2</strong>
                 <span class="score-separator" aria-hidden="true">:</span>
                 <strong class="score-number" id="result-score-away">1</strong>
               </div>
-              <span id="result-outcome">France unggul</span>
+              <span id="result-score-probability"></span>
             </div>
 
             <div class="match-team match-team-away">
@@ -170,14 +171,20 @@
             </div>
           </header>
 
+          <div class="prediction-explanation">
+            <p class="outcome-summary"><span data-i18n="strongest_outcome">Hasil 1X2 terkuat</span>: <strong id="result-outcome"></strong></p>
+            <p data-i18n="score_outcome_note">Skor eksak adalah satu kombinasi gol. Peluang menang mencakup semua skor kemenangan; peluang seri mencakup 0–0, 1–1, 2–2, dan seterusnya. Karena itu, 1–1 bisa menjadi skor eksak teratas meski satu tim lebih berpeluang menang.</p>
+          </div>
+
           <div class="metric-rail">
             <div>
               <span data-i18n="expected_goals">Expected goals</span>
               <strong><span id="xg-home">—</span><i>:</i><span id="xg-away">—</span></strong>
             </div>
             <div>
-              <span data-i18n="model_confidence">Kejelasan prediksi</span>
+              <span data-i18n="model_confidence">Kejelasan hasil 1X2</span>
               <strong id="confidence-value">—</strong>
+              <small class="metric-note" data-i18n="clarity_note">Indeks 0–100%: makin tinggi, makin dominan satu hasil. Bukan peluang prediksi benar.</small>
             </div>
             <div>
               <span data-i18n="data_depth">Kedalaman data</span>
@@ -185,7 +192,7 @@
             </div>
             <div>
               <span data-i18n="model_version">Model</span>
-              <strong>Hybrid v3</strong>
+              <strong id="result-model-name">—</strong>
             </div>
           </div>
 
@@ -226,7 +233,7 @@
             <div class="top-scores">
               <div class="result-section-title compact-title">
                 <p class="section-kicker">TOP 10</p>
-                <h3 data-i18n="likely_scores">Skor paling mungkin</h3>
+                <h3 data-i18n="likely_scores">Skor eksak paling mungkin</h3>
               </div>
               <div class="score-table" role="table" aria-label="Most likely scores">
                 <div class="score-table-head" role="row">

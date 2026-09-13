@@ -29,7 +29,13 @@ const copy = {
     home_short: "KANDANG",
     away_short: "TANDANG",
     expected_goals: "Expected goals",
-    model_confidence: "Kejelasan prediksi",
+    model_confidence: "Kejelasan hasil 1X2",
+    clarity_note: "Indeks 0–100%: makin tinggi, makin dominan satu hasil. Bukan peluang prediksi benar.",
+    exact_score_label: "Skor eksak paling mungkin",
+    exact_score_probability: "Peluang skor ini",
+    strongest_outcome: "Hasil 1X2 terkuat",
+    win_result: "menang",
+    score_outcome_note: "Skor eksak adalah satu kombinasi gol. Peluang menang mencakup semua skor kemenangan; peluang seri mencakup 0–0, 1–1, 2–2, dan seterusnya. Karena itu, 1–1 bisa menjadi skor eksak teratas meski satu tim lebih berpeluang menang.",
     data_depth: "Kedalaman data",
     model_version: "Model",
     outcome_title: "Probabilitas hasil",
@@ -37,7 +43,7 @@ const copy = {
     score_map: "Peta probabilitas skor",
     home_goals: "Gol kandang",
     away_goals: "Gol tandang",
-    likely_scores: "Skor paling mungkin",
+    likely_scores: "Skor eksak paling mungkin",
     rank: "#",
     score: "Skor",
     probability: "Probabilitas",
@@ -121,7 +127,13 @@ const copy = {
     home_short: "HOME",
     away_short: "AWAY",
     expected_goals: "Expected goals",
-    model_confidence: "Prediction clarity",
+    model_confidence: "1X2 outcome clarity",
+    clarity_note: "0–100% index: higher means one outcome is more dominant. This is not the probability of a correct prediction.",
+    exact_score_label: "Most likely exact score",
+    exact_score_probability: "Chance of this score",
+    strongest_outcome: "Most likely 1X2 outcome",
+    win_result: "win",
+    score_outcome_note: "An exact score is one goal combination. A win includes every winning score; a draw includes 0–0, 1–1, 2–2, and so on. So 1–1 can be the top exact score even when one team is more likely to win.",
     data_depth: "Data depth",
     model_version: "Model",
     outcome_title: "Outcome probability",
@@ -129,7 +141,7 @@ const copy = {
     score_map: "Score probability map",
     home_goals: "Home goals",
     away_goals: "Away goals",
-    likely_scores: "Most likely scores",
+    likely_scores: "Most likely exact scores",
     rank: "#",
     score: "Score",
     probability: "Probability",
@@ -403,21 +415,24 @@ function renderHeader(prediction) {
   const [homeScore = "0", awayScore = "0"] = String(prediction.headline.score).split("-");
   setText("#result-score-home", homeScore);
   setText("#result-score-away", awayScore);
+  const exactScore = prediction.top_scores.find((item) => item.score === prediction.headline.score);
+  setText("#result-score-probability", exactScore
+    ? `${t("exact_score_probability")}: ${percent(exactScore.probability)}`
+    : "");
   const scoreDisplay = document.querySelector("#result-score");
   if (scoreDisplay) {
     scoreDisplay.setAttribute(
       "aria-label",
-      state.language === "id"
-        ? `Skor ${homeScore} banding ${awayScore}`
-        : `Score ${homeScore} to ${awayScore}`,
+      `${t("exact_score_label")}: ${homeScore}–${awayScore}`,
     );
   }
 
   let call;
-  if (prediction.headline.outcome === "home") call = `${home.name} ${t("home_favored")}`;
-  else if (prediction.headline.outcome === "away") call = `${away.name} ${t("away_favored")}`;
-  else call = t("draw_favored");
-  setText("#result-outcome", call);
+  if (prediction.headline.outcome === "home") call = `${home.name} ${t("win_result")}`;
+  else if (prediction.headline.outcome === "away") call = `${away.name} ${t("win_result")}`;
+  else call = t("draw");
+  setText("#result-outcome", `${call} (${percent(prediction.one_x_two[prediction.headline.outcome])})`);
+  setText("#result-model-name", prediction.model.name);
 
   setText("#xg-home", number(prediction.expected_goals.home, 2));
   setText("#xg-away", number(prediction.expected_goals.away, 2));
