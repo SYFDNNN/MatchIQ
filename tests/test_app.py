@@ -5,6 +5,8 @@ import json
 import unittest
 from pathlib import Path
 
+import numpy as np
+
 from matchiq.web import create_app
 
 
@@ -71,9 +73,28 @@ class MatchIQAppTests(unittest.TestCase):
         prediction = prediction_response.get_json()["prediction"]
         self.assertEqual(prediction["competition"]["id"], "ucl")
         self.assertEqual(prediction["model"]["competition_id"], "ucl")
+        self.assertEqual(prediction["model"]["pipeline_version"], "ucl_v4_audited")
+        self.assertEqual(prediction["model"]["name"], "MatchIQ UCL v4 Audited")
         self.assertEqual(prediction["model"]["training_matches"], 1997)
         self.assertAlmostEqual(sum(prediction["one_x_two"].values()), 1.0, places=4)
         self.assertEqual(len(prediction["score_matrix"]), 8)
+        matrix = np.asarray(prediction["score_matrix"])
+        home_grid, away_grid = np.meshgrid(np.arange(8), np.arange(8), indexing="ij")
+        self.assertAlmostEqual(
+            float(matrix[home_grid > away_grid].sum()),
+            prediction["one_x_two"]["home"],
+            places=4,
+        )
+        self.assertAlmostEqual(
+            float(matrix[home_grid == away_grid].sum()),
+            prediction["one_x_two"]["draw"],
+            places=4,
+        )
+        self.assertAlmostEqual(
+            float(matrix[home_grid < away_grid].sum()),
+            prediction["one_x_two"]["away"],
+            places=4,
+        )
 
     def test_invalid_competition_is_rejected(self):
         response = self.client.post(
@@ -163,6 +184,22 @@ class MatchIQAppTests(unittest.TestCase):
         self.assertIn("hybrid_probabilities", source)
         self.assertIn("calibration_curve", source)
         self.assertIn("MatchIQEngine", source)
+
+    def test_ucl_v4_audited_notebook_contract(self):
+        path = PROJECT_ROOT / "notebooks" / "MatchIQ_UCL_v4_Audited.ipynb"
+        notebook = json.loads(path.read_text(encoding="utf-8"))
+        code_cells = [cell for cell in notebook["cells"] if cell["cell_type"] == "code"]
+        self.assertGreaterEqual(len(code_cells), 10)
+        for index, cell in enumerate(code_cells, start=1):
+            ast.parse("".join(cell["source"]), filename=f"ucl-v4-cell-{index}")
+            self.assertFalse(
+                any(output.get("output_type") == "error" for output in cell.get("outputs", []))
+            )
+        source = "\n".join("".join(cell["source"]) for cell in code_cells)
+        self.assertIn("FORBIDDEN", source)
+        self.assertIn("future-label invariance", source)
+        self.assertIn("apply_calibration", source)
+        self.assertIn("matchiq-ucl-v4-audited", source)
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
 NOTEBOOK = PROJECT_ROOT / "Piala_Dunia_26_Hybrid_AI_v4_VSCode.ipynb"
 UCL_NOTEBOOK = PROJECT_ROOT / "notebooks" / "MatchIQ_UCL_Hybrid_AI_Training.ipynb"
+UCL_V4_NOTEBOOK = PROJECT_ROOT / "notebooks" / "MatchIQ_UCL_v4_Audited.ipynb"
 
 PACKAGE_IMPORTS = {
     "numpy": "numpy",
@@ -69,6 +70,7 @@ required_files = [
     DATA_DIR / "matches.csv",
     NOTEBOOK,
     UCL_NOTEBOOK,
+    UCL_V4_NOTEBOOK,
     PROJECT_ROOT / "app.py",
     PROJECT_ROOT / "matchiq" / "engine.py",
     PROJECT_ROOT / "matchiq" / "competitions.py",
@@ -157,6 +159,22 @@ print(
     f"{executed_ucl_cells}/{len(ucl_code_cells)} code cell memiliki output eksekusi)"
 )
 
+ucl_v4_notebook = json.loads(UCL_V4_NOTEBOOK.read_text(encoding="utf-8"))
+ucl_v4_code_cells = [
+    cell for cell in ucl_v4_notebook["cells"] if cell.get("cell_type") == "code"
+]
+ucl_v4_source = "\n".join(
+    "".join(cell.get("source", [])) for cell in ucl_v4_code_cells
+)
+for index, cell in enumerate(ucl_v4_code_cells, start=1):
+    ast.parse("".join(cell.get("source", [])), filename=f"UCL v4 notebook cell {index}")
+    if any(output.get("output_type") == "error" for output in cell.get("outputs", [])):
+        fail(f"Notebook UCL v4 menyimpan error pada code cell {index}.")
+for marker in ("FORBIDDEN", "future-label invariance", "apply_calibration", "matchiq-ucl-v4-audited"):
+    if marker not in ucl_v4_source:
+        fail(f"Notebook UCL v4 tidak memiliki kontrol audit: {marker}")
+print(f"[OK] Notebook UCL v4 audited valid ({len(ucl_v4_code_cells)} code cell)")
+
 (PROJECT_ROOT / "outputs").mkdir(parents=True, exist_ok=True)
 
 if str(PROJECT_ROOT) not in sys.path:
@@ -170,6 +188,8 @@ for competition_id, spec in COMPETITIONS.items():
     engine = MatchIQEngine(spec.model_path(PROJECT_ROOT))
     if engine.competition_id != competition_id:
         fail(f"Runtime {competition_id} berisi kompetisi {engine.competition_id}.")
+    if competition_id == "ucl" and engine.pipeline_version != "ucl_v4_audited":
+        fail(f"Runtime UCL bukan v4 audited: {engine.pipeline_version}")
     prediction = engine.predict(spec.default_home, spec.default_away, handicap=-1.5)
     outcome_total = sum(prediction["one_x_two"].values())
     if abs(outcome_total - 1.0) >= 1e-4:
@@ -213,4 +233,4 @@ with app.test_client() as client:
         fail(f"API prediksi UCL gagal: {ucl_response.get_data(as_text=True)}")
 print("[OK] Flask UI dan API Piala Dunia/UCL berfungsi")
 
-print("\nVERIFIKASI BERHASIL: MatchIQ WC + UCL dan kedua notebook siap digunakan.")
+print("\nVERIFIKASI BERHASIL: MatchIQ WC + UCL dan seluruh notebook siap digunakan.")

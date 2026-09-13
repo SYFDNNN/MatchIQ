@@ -5,7 +5,7 @@ MatchIQ adalah aplikasi prediksi sepak bola lokal berbasis Flask untuk dua kompe
 - **Piala Dunia** — tim nasional;
 - **UEFA Champions League (UCL)** — klub.
 
-Antarmuka tersedia dalam bahasa Indonesia dan Inggris. Mesin **Hybrid v3** menggabungkan distribusi skor Dixon–Coles dengan classifier XGBoost terkalibrasi. Dataset dan runtime kedua kompetisi sengaja dipisahkan agar pola pertandingan klub tidak tercampur dengan tim nasional.
+Antarmuka tersedia dalam bahasa Indonesia dan Inggris. Piala Dunia memakai **Hybrid v3**, sedangkan UCL memakai **v4 audited** dengan fitur yang seluruhnya tersedia sebelum kick-off, model selection walk-forward, dan kalibrasi temporal. Dataset dan runtime kedua kompetisi dipisahkan agar pola pertandingan klub tidak tercampur dengan tim nasional.
 
 Saat setup pertama, MatchIQ membangun kedua runtime secara native memakai Python dan package aktif di Windows. File `.joblib` tidak disertakan di paket karena artifact XGBoost dari OS atau versi package lain dapat memunculkan `input stream corrupted`. Membuka aplikasi berikutnya tidak melatih ulang model selama runtime masih kompatibel.
 
@@ -66,17 +66,19 @@ Hasil yang tersedia mencakup probabilitas 1X2, expected goals, skor paling mungk
 
 Setiap runtime memakai alur berikut:
 
-- **Dixon–Coles (40%)** untuk distribusi gol dan matriks skor;
-- **XGBoost terkalibrasi (60%)** untuk membaca ELO, form, tren gol, clean sheet, BTTS, home/away split, dan fitur time-aware lainnya;
+- **Dixon–Coles** menyediakan distribusi gol dan matriks skor;
+- **UCL v4 audited** memakai nested walk-forward model selection, model XGBoost/logistik, draw policy, dan kalibrasi temporal tanpa fitur skor saat pertandingan;
+- **Piala Dunia Hybrid v3** memakai XGBoost terkalibrasi untuk membaca ELO, form, tren gol, clean sheet, BTTS, home/away split, dan fitur time-aware lainnya;
 - tim dengan histori terbatas memakai fallback netral dan diberi label kedalaman data terbatas.
 
-Evaluasi UCL memakai holdout temporal: musim 2011-12 sampai 2024-25 untuk training dan 2025-26 untuk pengujian. Hasil tersimpan pada `reports/ucl_model_evaluation.json`:
+Notebook UCL v4 menyimpan evaluasi walk-forward empat outer season (628 pertandingan). Hasil yang terekam di notebook baru:
 
-- accuracy: **52,91%**;
-- multiclass log loss: **1,0041**;
-- multiclass Brier: **0,6015**.
+- argmax accuracy: **56,21%**;
+- multiclass log loss: **0,9399**, dibanding Dixon–Coles **1,0024** pada split yang sama;
+- confidence ECE: **2,73%**;
+- draw-aware accuracy: **52,71%** dengan draw recall **22,12%**.
 
-Setelah evaluasi, runtime produksi dilatih ulang memakai seluruh pertandingan selesai sampai 2025-26.
+Angka lama yang memakai skor babak pertama tidak dianggap benchmark pra-pertandingan yang valid. Runtime produksi memakai final state seluruh pertandingan selesai sampai 2025-26; model dasarnya dibekukan sebelum musim kalibrasi terakhir.
 
 ## Menjalankan tanpa file BAT
 
@@ -112,11 +114,7 @@ Pilihan lain untuk `--competition` adalah `world_cup` dan `ucl`. Sesudah trainin
 & "$env:LOCALAPPDATA\piala-dunia-26-hybrid-ai-v4-venv\Scripts\python.exe" .\scripts\verify_setup.py
 ```
 
-Evaluasi temporal UCL dapat diulang dengan:
-
-```powershell
-& "$env:LOCALAPPDATA\piala-dunia-26-hybrid-ai-v4-venv\Scripts\python.exe" .\scripts\evaluate_ucl_model.py
-```
+Audit walk-forward lengkap dapat dihitung ulang dengan menjalankan seluruh cell pada `notebooks/MatchIQ_UCL_v4_Audited.ipynb`. Script `evaluate_ucl_model.py` dipertahankan hanya untuk reproduksi baseline Hybrid v3 lama.
 
 ## Memvalidasi dataset UCL
 
@@ -151,12 +149,13 @@ Payload lama tanpa `competition` tetap kompatibel dan otomatis memakai `world_cu
 
 ## Notebook riset
 
-Proyek menyediakan dua notebook terpisah:
+Proyek menyediakan tiga notebook terpisah:
 
 | Notebook | Isi |
 |---|---|
 | `Piala_Dunia_26_Hybrid_AI_v4_VSCode.ipynb` | Eksperimen Piala Dunia asli, 199 cell |
-| `notebooks/MatchIQ_UCL_Hybrid_AI_Training.ipynb` | Audit data, EDA, split temporal, training, kalibrasi, evaluasi, error analysis, dan uji runtime UCL |
+| `notebooks/MatchIQ_UCL_Hybrid_AI_Training.ipynb` | Notebook UCL Hybrid v3 sebelumnya |
+| `notebooks/MatchIQ_UCL_v4_Audited.ipynb` | Audit leakage, fitur pra-pertandingan, nested walk-forward, kalibrasi temporal, dan bundle UCL v4 |
 
 Notebook UCL sudah dijalankan penuh dan menyimpan tabel serta grafik hasil evaluasi. Untuk menjalankannya kembali:
 
@@ -165,11 +164,9 @@ Notebook UCL sudah dijalankan penuh dan menyimpan tabel serta grafik hasil evalu
 3. Pilih **Python 3.12 (MatchIQ Hybrid AI)**.
 4. Klik **Run All**.
 
-Notebook UCL menahan musim 2025-26 sebagai test set, membandingkan class-prior baseline,
-Dixon–Coles, XGBoost terkalibrasi, dan Hybrid v3, lalu menguji artifact yang sama dengan Flask.
-Cell refit produksi dibuat `False` secara default agar Run All tidak menimpa runtime tanpa disengaja.
+Notebook UCL v4 menjalankan outer walk-forward pada empat musim terakhir, memisahkan meta-training, tuning, dan kalibrasi, lalu memeriksa parity export/reload. Runtime Flask mengimplementasikan feature builder, model selection, kalibrator, state Elo, dan draw policy yang sama.
 
-Untuk menghasilkan ulang struktur notebook UCL dari source builder:
+Untuk menghasilkan ulang notebook UCL v3 lama dari source builder:
 
 ```powershell
 & "$env:LOCALAPPDATA\piala-dunia-26-hybrid-ai-v4-venv\Scripts\python.exe" .\scripts\build_ucl_notebook.py
@@ -183,7 +180,8 @@ Untuk prediksi sehari-hari, gunakan Flask karena runtime sudah siap pakai.
 |---|---|
 | `app.py` | Entry point server Flask |
 | `matchiq/competitions.py` | Registry kompetisi, dataset, dan runtime |
-| `matchiq/engine.py` | Training, inference Hybrid v3, dan kalkulasi pasar |
+| `matchiq/engine.py` | Router runtime multi-kompetisi dan kalkulasi pasar |
+| `matchiq/ucl_v4.py` | Fitur pra-pertandingan, nested walk-forward, training, kalibrasi, dan inference UCL v4 |
 | `matchiq/web.py` | Route halaman dan API multi-kompetisi |
 | `models/dixon_coles_params.json` | Parameter Dixon–Coles Piala Dunia |
 | `models/ucl_dixon_coles_params.json` | Parameter Dixon–Coles UCL |
@@ -193,11 +191,11 @@ Untuk prediksi sehari-hari, gunakan Flask karena runtime sudah siap pakai.
 | `static/js/app.js` | Kompetisi, interaksi, heatmap, dan ID/EN |
 | `scripts/build_runtime_model.py` | Training satu atau semua runtime |
 | `scripts/train_ucl_runtime.py` | Training khusus UCL |
-| `scripts/evaluate_ucl_model.py` | Evaluasi temporal UCL |
-| `scripts/build_ucl_notebook.py` | Membangun ulang notebook audit UCL |
+| `scripts/evaluate_ucl_model.py` | Reproduksi evaluasi baseline UCL Hybrid v3 lama |
+| `scripts/build_ucl_notebook.py` | Membangun ulang notebook UCL v3 lama |
 | `scripts/ensure_runtime_model.py` | Pemeriksaan kompatibilitas dan rebuild otomatis |
 | `scripts/verify_setup.py` | Verifikasi package, data, model, Flask, dan API |
-| `notebooks/MatchIQ_UCL_Hybrid_AI_Training.ipynb` | Notebook training dan evaluasi UCL transparan |
+| `notebooks/MatchIQ_UCL_v4_Audited.ipynb` | Notebook audit dan evaluasi utama UCL v4 |
 | `notebooks/original_colab/` | Salinan notebook Colab asli |
 
 ## Troubleshooting

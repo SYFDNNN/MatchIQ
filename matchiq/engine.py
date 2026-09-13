@@ -7,7 +7,7 @@ import sys
 import unicodedata
 import warnings
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
@@ -529,12 +529,24 @@ class MatchIQEngine:
             raise ModelArtifactError(f"Model runtime gagal dibaca: {exc}") from exc
         if artifact.get("schema_version") != MODEL_SCHEMA_VERSION:
             raise ModelArtifactError("Versi model runtime tidak didukung; bangun ulang model.")
-        for key in ("dc_model", "model_v3", "team_stats", "feature_columns", "metadata"):
+        self.pipeline_version = str(artifact.get("pipeline_version", "hybrid_v3"))
+        required_keys = ["dc_model", "feature_columns", "metadata"]
+        if self.pipeline_version == "ucl_v4_audited":
+            required_keys.append("ucl_v4")
+        else:
+            required_keys.extend(("model_v3", "team_stats"))
+        for key in required_keys:
             if key not in artifact:
                 raise ModelArtifactError(f"Model runtime tidak lengkap: {key} tidak ada.")
-        self.dc_model: DixonColesModel = artifact["dc_model"]
-        self.model_v3 = artifact["model_v3"]
-        self.team_stats: Dict[str, dict] = artifact["team_stats"]
+        self.dc_model = artifact["dc_model"]
+        if self.pipeline_version == "ucl_v4_audited":
+            self.ucl_v4_pipeline: Dict[str, Any] = artifact["ucl_v4"]["pipeline"]
+            self.ucl_v4_state: Dict[str, Any] = artifact["ucl_v4"]["team_state"]
+            self.model_v3 = None
+            self.team_stats = self.ucl_v4_state["teams"]
+        else:
+            self.model_v3 = artifact["model_v3"]
+            self.team_stats = artifact["team_stats"]
         self.feature_columns: List[str] = artifact["feature_columns"]
         self.metadata: Dict[str, Any] = artifact["metadata"]
         competition = self.metadata.get("competition") or COMPETITIONS[
@@ -618,23 +630,62 @@ class MatchIQEngine:
         if not -5.0 <= float(handicap) <= 5.0:
             raise ValueError("Handicap harus berada di antara -5.0 dan 5.0.")
 
-        matrix = self.dc_model.score_matrix(home_id, away_id, MAX_GOALS)
+        recommended_index: Optional[int] = None
+        if self.pipeline_version == "ucl_v4_audited":
+            from .ucl_v4 import match_features, predict_pipeline
+
+            prediction_date = pd.Timestamp(self.ucl_v4_state["last_date"]) + timedelta(days=1)
+            values = match_features(
+                self.ucl_v4_state,
+                home_id,
+                away_id,
+                prediction_date,
+                stage="league_phase",
+                leg="not_applicable",
+                neutral=0,
+            )
+            feature_frame = pd.DataFrame([values])
+            feature_frame["home_team"] = home_id
+            feature_frame["away_team"] = away_id
+            feature_frame["neutral"] = 0
+            probabilities, decisions = predict_pipeline(
+                self.ucl_v4_pipeline, feature_frame
+            )
+            blended = probabilities[0]
+            recommended_index = int(decisions[0])
+            matrix = self.dc_model.score_matrix(
+                home_id, away_id, MAX_GOALS, neutral=0
+            )
+            home_grid, away_grid = np.meshgrid(
+                np.arange(MAX_GOALS + 1),
+                np.arange(MAX_GOALS + 1),
+                indexing="ij",
+            )
+            outcome_masks = (home_grid > away_grid, home_grid == away_grid, home_grid < away_grid)
+            for index, mask in enumerate(outcome_masks):
+                mass = float(matrix[mask].sum())
+                if mass > 0:
+                    matrix[mask] *= float(blended[index]) / mass
+            matrix /= matrix.sum()
+        else:
+            matrix = self.dc_model.score_matrix(home_id, away_id, MAX_GOALS)
+            dc_probs = matrix_outcome_probs(matrix)
+            features = _feature_row(home_id, away_id, self.team_stats, dc_probs)
+            features = features[self.feature_columns]
+            ml_probability = self.model_v3.predict_proba(features)[0]
+            blended = np.array(
+                [
+                    0.4 * dc_probs["H"] + 0.6 * ml_probability[0],
+                    0.4 * dc_probs["D"] + 0.6 * ml_probability[1],
+                    0.4 * dc_probs["A"] + 0.6 * ml_probability[2],
+                ],
+                dtype=float,
+            )
+            blended /= blended.sum()
+
         goal_values = np.arange(MAX_GOALS + 1, dtype=float)
         lam_home = float((matrix * goal_values[:, None]).sum())
         lam_away = float((matrix * goal_values[None, :]).sum())
-        dc_probs = matrix_outcome_probs(matrix)
-        features = _feature_row(home_id, away_id, self.team_stats, dc_probs)
-        features = features[self.feature_columns]
-        ml_probability = self.model_v3.predict_proba(features)[0]
-        blended = np.array(
-            [
-                0.4 * dc_probs["H"] + 0.6 * ml_probability[0],
-                0.4 * dc_probs["D"] + 0.6 * ml_probability[1],
-                0.4 * dc_probs["A"] + 0.6 * ml_probability[2],
-            ],
-            dtype=float,
-        )
-        blended /= blended.sum()
 
         home_grid, away_grid = np.meshgrid(
             np.arange(MAX_GOALS + 1), np.arange(MAX_GOALS + 1), indexing="ij"
@@ -685,6 +736,11 @@ class MatchIQEngine:
         away_payload = self.team_payload(away_id)
         outcome_index = int(np.argmax(blended))
         outcome_key = ("home", "draw", "away")[outcome_index]
+        recommended_key = (
+            ("home", "draw", "away")[recommended_index]
+            if recommended_index is not None
+            else outcome_key
+        )
 
         return {
             "competition": self.competition,
@@ -738,8 +794,12 @@ class MatchIQEngine:
                 "exact_goals": exact_goals,
             },
             "model": {
-                "name": "MatchIQ Hybrid v3",
-                "blend": {"dixon_coles": 0.4, "xgboost": 0.6},
+                "name": self.metadata.get("model_name", "MatchIQ Hybrid v3"),
+                "pipeline_version": self.pipeline_version,
+                "recommended_outcome": recommended_key,
+                "blend": self.metadata.get(
+                    "blend", {"dixon_coles": 0.4, "xgboost": 0.6}
+                ),
                 "backend": self.metadata.get("model_backend", "xgboost"),
                 "competition_id": self.competition_id,
                 "training_matches": self.metadata.get("training_matches"),
@@ -752,8 +812,16 @@ class MatchIQEngine:
         away = self.team_stats.get(away_id, {})
         home_elo = float(home.get("elo", 1500.0))
         away_elo = float(away.get("elo", 1500.0))
-        home_form = float(np.mean(home.get("res", [0.5])[-5:]))
-        away_form = float(np.mean(away.get("res", [0.5])[-5:]))
+
+        def recent_form(team: dict) -> float:
+            if team.get("res"):
+                return float(np.mean(team["res"][-5:]))
+            if team.get("games"):
+                return float(np.mean([game["points"] / 3 for game in team["games"][-5:]]))
+            return 0.5
+
+        home_form = recent_form(home)
+        away_form = recent_form(away)
         elo_diff = (home_elo - away_elo) / 400
         home_score = (1 / (1 + np.exp(-elo_diff))) * 0.7 + home_form * 0.3
         away_score = (1 / (1 + np.exp(elo_diff))) * 0.7 + away_form * 0.3
@@ -976,6 +1044,59 @@ def build_runtime_artifact(
     output = Path(output_path).resolve()
     competition_id = resolve_competition_id(competition_id)
     competition = COMPETITIONS[competition_id]
+
+    if competition_id == "ucl":
+        from .ucl_v4 import PIPELINE_VERSION, train_ucl_v4
+
+        trained = train_ucl_v4(competition.training_path(root))
+        dc_model = trained["pipeline"]["dc"]
+        team_catalog, aliases = _build_team_catalog(root, competition_id, dc_model)
+        split = trained["split"]
+        metadata = {
+            "model_name": "MatchIQ UCL v4 Audited",
+            "pipeline_version": PIPELINE_VERSION,
+            "competition": competition.public_payload(),
+            "model_backend": "nested_walk_forward_xgboost",
+            "training_matches": int(trained["training_matches"]),
+            "data_until": trained["data_until"],
+            "built_at": datetime.now(timezone.utc).isoformat(),
+            "python": sys.version.split()[0],
+            "platform": platform.system(),
+            "scikit_learn": sklearn.__version__,
+            "xgboost": xgboost_version,
+            "leakage_safe": True,
+            "selection": split,
+            "blend": {
+                "kind": split["kind"],
+                "component": split["component"],
+                "weight": split["weight"],
+                "calibration": split["calibration_method"],
+            },
+        }
+        artifact: Dict[str, Any] = {
+            "schema_version": MODEL_SCHEMA_VERSION,
+            "pipeline_version": PIPELINE_VERSION,
+            "dc_model": dc_model,
+            "feature_columns": trained["feature_columns"],
+            "team_catalog": team_catalog,
+            "aliases": aliases,
+            "ucl_v4": {
+                "pipeline": trained["pipeline"],
+                "team_state": trained["team_state"],
+                "split": split,
+            },
+            "metadata": metadata,
+        }
+        output.parent.mkdir(parents=True, exist_ok=True)
+        temporary_output = output.with_name(f".{output.name}.tmp")
+        try:
+            joblib.dump(artifact, temporary_output, compress=3)
+            temporary_output.replace(output)
+        finally:
+            if temporary_output.exists():
+                temporary_output.unlink()
+        return metadata
+
     matches = _load_training_matches(root, competition_id)
     professional, team_stats = build_professional_features(matches)
 

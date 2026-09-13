@@ -33,6 +33,10 @@ def validate_runtime(competition_id: str) -> MatchIQEngine:
         raise ModelArtifactError(
             f"Runtime berisi {engine.competition_id}, seharusnya {competition_id}."
         )
+    if competition_id == "ucl" and engine.pipeline_version != "ucl_v4_audited":
+        raise ModelArtifactError(
+            f"Runtime UCL masih {engine.pipeline_version}; versi ucl_v4_audited diperlukan."
+        )
     expected = {
         "platform": platform.system(),
         "scikit_learn": installed_version("scikit-learn", "sklearn"),

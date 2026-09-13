@@ -16,7 +16,7 @@ from matchiq.engine import MatchIQEngine, build_runtime_artifact  # noqa: E402
 def main() -> int:
     spec = COMPETITIONS["ucl"]
     destination = spec.model_path(PROJECT_ROOT)
-    print("Training MatchIQ UCL Hybrid v3...")
+    print("Training MatchIQ UCL v4 Audited...")
     metadata = build_runtime_artifact(
         PROJECT_ROOT,
         destination,
@@ -27,6 +27,8 @@ def main() -> int:
     probability_total = sum(prediction["one_x_two"].values())
     if abs(probability_total - 1.0) >= 1e-4:
         raise RuntimeError(f"Probabilitas UCL tidak valid: {probability_total}")
+    if prediction["model"]["pipeline_version"] != "ucl_v4_audited":
+        raise RuntimeError("Runtime UCL v4 audited tidak aktif setelah training.")
     print(json.dumps(metadata, indent=2, ensure_ascii=False))
     print(f"[OK] Runtime UCL siap: {destination.relative_to(PROJECT_ROOT)}")
     return 0

@@ -31,9 +31,6 @@ jobs:
       - name: Build UCL runtime model
         run: python scripts/build_runtime_model.py --competition ucl
 
-      - name: Evaluate UCL temporal holdout
-        run: python scripts/evaluate_ucl_model.py
-
       - name: Run automated tests
         run: >-
           python -m pytest -q
@@ -42,3 +39,5 @@ jobs:
           tests/test_app.py::MatchIQAppTests::test_invalid_competition_is_rejected
           tests/test_app.py::MatchIQAppTests::test_frontend_motion_and_team_option_contract
           tests/test_app.py::MatchIQAppTests::test_ucl_notebook_training_and_evaluation_contract
+          tests/test_app.py::MatchIQAppTests::test_ucl_v4_audited_notebook_contract
+          tests/test_ucl_v4.py
