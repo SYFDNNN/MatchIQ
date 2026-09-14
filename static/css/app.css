@@ -1228,40 +1228,47 @@ select optgroup {
 
 .extended-rail {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 
 .extended-item {
   min-width: 0;
-  padding: 22px;
+  padding: 26px 28px;
   border-right: 1px solid var(--line);
 }
 
-.extended-item:last-child {
+.extended-item:nth-child(2n) {
   border-right: 0;
+}
+
+.extended-item:nth-child(-n + 2) {
+  border-bottom: 1px solid var(--line);
 }
 
 .extended-item strong {
   display: block;
-  overflow: hidden;
   margin-top: 10px;
   color: #e7e7e7;
-  text-overflow: ellipsis;
   font-size: 18px;
   font-weight: 560;
-  white-space: nowrap;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .extended-item small {
   display: block;
-  overflow: hidden;
-  margin-top: 6px;
-  color: #6c6c6c;
-  text-overflow: ellipsis;
+  margin-top: 8px;
+  color: #a0a0a0;
   font-size: 12px;
-  white-space: nowrap;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.extended-item .chart-note {
+  max-width: 52ch;
+  margin: 16px 0 0;
 }
 
 .secondary-markets {
@@ -1725,17 +1732,7 @@ noscript {
     grid-template-columns: 1fr;
   }
 
-  .extended-rail {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .extended-item:nth-child(2) {
-    border-right: 0;
-  }
-
-  .extended-item:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--line);
-  }
+  .extended-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
