@@ -9,6 +9,12 @@ Antarmuka tersedia dalam bahasa Indonesia dan Inggris. Piala Dunia memakai **Hyb
 
 Saat setup pertama, MatchIQ membangun kedua runtime secara native memakai Python dan package aktif di Windows. File `.joblib` tidak disertakan di paket karena artifact XGBoost dari OS atau versi package lain dapat memunculkan `input stream corrupted`. Membuka aplikasi berikutnya tidak melatih ulang model selama runtime masih kompatibel.
 
+## Tampilan dan video demo
+
+[![Tampilan awal MatchIQ](docs/images/matchiq-home.png)](https://drive.google.com/file/d/1SYpFYftIpEfsnr3Ezf8IVBcEx36eUHhJ/view?usp=sharing)
+
+Klik gambar di atas atau buka **[video demo MatchIQ di Google Drive](https://drive.google.com/file/d/1SYpFYftIpEfsnr3Ezf8IVBcEx36eUHhJ/view?usp=sharing)** untuk melihat alur penggunaan aplikasi.
+
 ## Setup tercepat di Windows
 
 Persyaratan:
