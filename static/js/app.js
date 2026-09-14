@@ -26,6 +26,11 @@ const copy = {
     handicap_hint: "Opsional untuk analisis HDP",
     analyze: "Analisis pertandingan",
     analyzing: "Menganalisis",
+    reset_analysis: "Reset analisis",
+    reset_complete: "Analisis direset. Form kembali ke pilihan awal kompetisi ini.",
+    ready_kicker: "SIAP DIANALISIS",
+    ready_title: "Belum ada hasil pertandingan.",
+    ready_body: "Pilih kompetisi, dua tim, dan handicap jika diperlukan. Klik Analisis pertandingan untuk membuat prediksi.",
     home_short: "KANDANG",
     away_short: "TANDANG",
     expected_goals: "Expected goals",
@@ -145,6 +150,11 @@ const copy = {
     handicap_hint: "Optional HDP analysis",
     analyze: "Analyze match",
     analyzing: "Analyzing",
+    reset_analysis: "Reset analysis",
+    reset_complete: "Analysis reset. The form is back to this competition’s default choices.",
+    ready_kicker: "READY TO ANALYZE",
+    ready_title: "No match result yet.",
+    ready_body: "Choose a competition, two teams, and an optional handicap. Click Analyze match to create a prediction.",
     home_short: "HOME",
     away_short: "AWAY",
     expected_goals: "Expected goals",
@@ -269,8 +279,10 @@ const elements = {
   language: document.querySelector("#language-toggle"),
   button: document.querySelector("#analyze-button"),
   buttonLabel: document.querySelector("[data-button-label]"),
+  reset: document.querySelector("#reset-analysis"),
   status: document.querySelector("#status-message"),
   result: document.querySelector("#result-content"),
+  empty: document.querySelector("#analysis-empty"),
 };
 
 function t(key) {
@@ -407,6 +419,7 @@ function setLoading(loading) {
   elements.form.setAttribute("aria-busy", String(loading));
   elements.button.classList.toggle("loading", loading);
   elements.buttonLabel.textContent = loading ? t(state.ready ? "analyzing" : "loading_data") : t(state.ready ? "analyze" : "retry");
+  elements.reset.disabled = loading || !state.ready;
 }
 
 function showError(key) {
@@ -430,6 +443,7 @@ function renderFeedback() {
 function invalidatePrediction() {
   state.prediction = null;
   elements.result.hidden = true;
+  elements.empty.hidden = false;
   state.feedback = "stale";
   clearError();
   renderFeedback();
@@ -460,6 +474,7 @@ async function requestPrediction({ scroll = false } = {}) {
   }
   state.prediction = null;
   elements.result.hidden = true;
+  elements.empty.hidden = true;
   state.feedback = "analyzing";
   renderFeedback();
   setLoading(true);
@@ -477,11 +492,13 @@ async function requestPrediction({ scroll = false } = {}) {
     state.prediction = payload.prediction;
     renderPrediction(state.prediction);
     elements.result.hidden = false;
+    elements.empty.hidden = true;
     if (scroll) {
       elements.result.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
     }
   } catch (error) {
     showError(error.message);
+    elements.empty.hidden = false;
   } finally {
     state.feedback = null;
     renderFeedback();
@@ -767,6 +784,23 @@ elements.swap.addEventListener("click", () => {
   invalidatePrediction();
 });
 
+elements.reset.addEventListener("click", () => {
+  if (!state.ready || state.loading) return;
+  state.prediction = null;
+  populateTeams(false);
+  elements.handicap.value = "-1.5";
+  elements.result.hidden = true;
+  elements.empty.hidden = false;
+  state.feedback = "reset_complete";
+  clearError();
+  renderFeedback();
+  elements.homeSelect.focus({ preventScroll: true });
+  document.querySelector("#predictor").scrollIntoView({
+    behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    block: "start",
+  });
+});
+
 elements.homeSelect.addEventListener("change", invalidatePrediction);
 elements.awaySelect.addEventListener("change", invalidatePrediction);
 elements.handicap.addEventListener("change", invalidatePrediction);
@@ -789,6 +823,7 @@ async function initialize() {
   state.teamMap.clear();
   state.prediction = null;
   elements.result.hidden = true;
+  elements.empty.hidden = false;
   elements.homeSelect.replaceChildren();
   elements.awaySelect.replaceChildren();
   state.feedback = "loading_data";
@@ -806,7 +841,6 @@ async function initialize() {
     renderFeedback();
     setLoading(false);
   }
-  if (state.ready) await requestPrediction({ scroll: false });
 }
 
 initialize();

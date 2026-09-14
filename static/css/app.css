@@ -680,14 +680,67 @@ select optgroup {
   stroke-width: 1.4;
 }
 
+.form-actions {
+  display: grid;
+  min-width: 190px;
+  gap: 8px;
+  margin-bottom: 19px;
+}
+
 .analyze-button {
   min-height: 50px;
-  margin-bottom: 19px;
   padding: 0 20px;
   border-radius: 9px;
   background: #f2f2f2;
   color: #080808;
   white-space: nowrap;
+}
+
+.reset-button {
+  min-height: 36px;
+  padding: 0 16px;
+  border: 1px solid #303030;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted-strong);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.reset-button:hover:not(:disabled) {
+  border-color: #555;
+  background: #111;
+  color: #fff;
+}
+
+.analysis-empty {
+  display: grid;
+  min-height: 260px;
+  place-content: center;
+  padding: 48px 24px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.analysis-empty .section-kicker {
+  margin: 0 0 14px;
+}
+
+.analysis-empty h3 {
+  margin: 0;
+  color: #ededed;
+  font-size: clamp(22px, 3vw, 30px);
+  letter-spacing: -0.035em;
+}
+
+.analysis-empty p {
+  max-width: 580px;
+  margin: 14px auto 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .analyze-button:disabled {
@@ -1713,7 +1766,7 @@ noscript {
     grid-column: 1 / 2;
   }
 
-  .analyze-button {
+  .form-actions {
     grid-column: 2 / 4;
   }
 
@@ -1812,11 +1865,16 @@ noscript {
   }
 
   .handicap-field,
-  .analyze-button {
+  .form-actions {
     grid-column: auto;
   }
 
   .analyze-button {
+    width: 100%;
+    margin: 3px 0 0;
+  }
+
+  .form-actions {
     width: 100%;
     margin: 3px 0 0;
   }

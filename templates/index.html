@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#050505">
   <title>MatchIQ — Football Prediction Intelligence</title>
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css', v='20260914-layout') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css', v='20260914-reset') }}">
 </head>
 <body>
   <a class="skip-link" href="#predictor" data-i18n="skip">Lewati ke prediktor</a>
@@ -133,14 +133,22 @@
             <small data-i18n="handicap_hint">Opsional untuk analisis HDP</small>
           </div>
 
-          <button class="button analyze-button" id="analyze-button" type="submit">
-            <span data-button-label data-i18n="analyze">Analisis pertandingan</span>
-            <span class="button-loader" aria-hidden="true"></span>
-          </button>
+          <div class="form-actions">
+            <button class="button analyze-button" id="analyze-button" type="submit">
+              <span data-button-label data-i18n="analyze">Analisis pertandingan</span>
+              <span class="button-loader" aria-hidden="true"></span>
+            </button>
+            <button class="reset-button" id="reset-analysis" type="button" data-i18n="reset_analysis">Reset analisis</button>
+          </div>
         </form>
 
         <div class="status-message" id="status-message" role="alert" hidden></div>
         <p class="form-feedback" id="form-feedback" role="status" hidden></p>
+        <div class="analysis-empty" id="analysis-empty">
+          <span class="section-kicker" data-i18n="ready_kicker">SIAP DIANALISIS</span>
+          <h3 data-i18n="ready_title">Belum ada hasil pertandingan.</h3>
+          <p data-i18n="ready_body">Pilih kompetisi, dua tim, dan handicap jika diperlukan. Klik Analisis pertandingan untuk membuat prediksi.</p>
+        </div>
 
         <div class="result-content" id="result-content" hidden aria-live="polite">
           <div class="result-divider"></div>
@@ -401,6 +409,6 @@
   </footer>
 
   <noscript>MatchIQ membutuhkan JavaScript untuk menampilkan prediksi interaktif.</noscript>
-  <script src="{{ url_for('static', filename='js/app.js', v='20260913-ui') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/app.js', v='20260914-reset') }}" defer></script>
 </body>
 </html>
